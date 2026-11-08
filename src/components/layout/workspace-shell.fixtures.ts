@@ -8,6 +8,13 @@ export const ready = {
   loading: false,
   error: "",
   onRetry: () => {},
+  mode: "demo",
+  liveAvailable: false,
+  onModeChange: () => {},
+  onReset: () => {},
+  resetting: false,
 } satisfies WorkspaceShellProps;
 export const loading = { ...ready, loading: true } satisfies WorkspaceShellProps;
 export const unavailable = { ...ready, error: "The fictional server is unavailable." } satisfies WorkspaceShellProps;
+export const live = { ...ready, mode: "live", liveAvailable: true } satisfies WorkspaceShellProps;
+export const resetting = { ...ready, resetting: true } satisfies WorkspaceShellProps;

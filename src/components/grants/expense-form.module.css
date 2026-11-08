@@ -1,0 +1,11 @@
+/* Expense-entry form for the grants ledger. New styles live here (never globals.css);
+   inputs, labels, buttons, pills and notices reuse the shared classes. */
+.expenseSection { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.expenseForm { width: 100%; border: 1px solid #e4eada; border-radius: 10px; background: #fcfdf9; padding: 18px; display: flex; flex-direction: column; gap: 13px; }
+.expenseGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px 14px; }
+.expenseFull { grid-column: 1 / -1; }
+.expenseActions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.formNotice { margin: 0; justify-content: flex-start; }
+.upcomingList { grid-column: 1 / -1; }
+@media (max-width: 1020px) { .expenseGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .expenseSection { padding: 0 17px 20px; } }

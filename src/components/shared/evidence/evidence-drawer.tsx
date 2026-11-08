@@ -18,7 +18,7 @@ export default function EvidenceDrawer({ title, sources, onClose }: {
     };
   }, []);
   const rows = sources;
-  return <dialog ref={ref} className="evidence-drawer" aria-labelledby="evidence-title" onCancel={onClose}>
+  return <dialog ref={ref} className="evidence-drawer" aria-labelledby="evidence-title" onCancel={onClose} onClick={(event) => { if (event.target === ref.current) onClose(); }}>
     <div className="drawer-heading">
       <div><span className="eyebrow">THE RECORD BEHIND THE RESULT</span><h2 id="evidence-title">{title}</h2></div>
       <button className="icon-button" aria-label="Close evidence" onClick={onClose}><X size={20} /></button>

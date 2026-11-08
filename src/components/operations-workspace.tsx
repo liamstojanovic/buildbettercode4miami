@@ -3,18 +3,23 @@
 import { useRef, useState } from "react";
 import { ArrowRight, Check, ChevronDown, FileInput, FileText, GitMerge, Heart, Link2, LoaderCircle, Mail, Phone, Plus, Sparkles, Users } from "lucide-react";
 import type { Dashboard, Draft } from "@/lib/types";
-import { apiRequest, errorMessage, formatMetric } from "./client-api";
+import { errorMessage } from "@/lib/client-api";
+import { formatMetric } from "@/lib/format";
+import ToastNotice from "@/components/shared/notice/toast-notice";
 
 type Props = {
   dashboard: Dashboard;
-  mode: "demo" | "live";
-  onUpdate: (dashboard: Dashboard) => void;
+  onMerge: (candidateId: string, decision: "approve" | "reject") => Promise<void>;
+  onImport: (csv: string, sourceName: string) => Promise<{ inserted: number; skipped: number }>;
+  onSaveAttendance: (participantId: string, date: string, status: "present" | "absent" | "cancelled" | "scheduled") => Promise<void>;
+  onDraftFollowup: (queueItemId: string) => Promise<Draft>;
+  readCsvFile: (file: File) => Promise<{ name: string; text: string }>;
   onError: (message: string) => void;
   onEvidence: (ids: string[], title: string) => void;
-  onDraft: (draft: Draft) => void;
+  onDrafted?: (draft: Draft, personName?: string) => void;
 };
 
-export function OperationsWorkspace({ dashboard, mode, onUpdate, onError, onEvidence, onDraft }: Props) {
+export function OperationsWorkspace({ dashboard, onMerge, onImport, onSaveAttendance, onDraftFollowup, readCsvFile, onError, onEvidence, onDrafted }: Props) {
   const [busy, setBusy] = useState<string | null>(null);
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
@@ -32,7 +37,7 @@ export function OperationsWorkspace({ dashboard, mode, onUpdate, onError, onEvid
   async function decide(candidateId: string, decision: "approve" | "reject") {
     setBusy(candidateId); onError(""); setNotice("");
     try {
-      onUpdate(await apiRequest<Dashboard>("/api/merge", "POST", { candidateId, decision }));
+      await onMerge(candidateId, decision);
       setNotice(decision === "approve" ? "Records joined. Gift history and total dollars are preserved." : "Records kept separate. Your review is recorded.");
     } catch (err) { onError(errorMessage(err)); } finally { setBusy(null); }
   }
@@ -40,24 +45,24 @@ export function OperationsWorkspace({ dashboard, mode, onUpdate, onError, onEvid
   async function draftFollowup(queueItemId: string) {
     setBusy(queueItemId); onError("");
     try {
-      const result = await apiRequest<{ draft: Draft; dashboard: Dashboard }>("/api/drafts", "POST", { kind: "followup", queueItemId, mode });
-      onUpdate(result.dashboard); onDraft(result.draft);
+      const draft = await onDraftFollowup(queueItemId);
+      onDrafted?.(draft, queue.find((item) => item.id === queueItemId)?.name);
     } catch (err) { onError(errorMessage(err)); } finally { setBusy(null); }
   }
 
   async function importCsv() {
     setBusy("import"); onError(""); setNotice("");
     try {
-      const result = await apiRequest<{ inserted: number; skipped: number; dashboard: Dashboard }>("/api/import", "POST", { csv, sourceName });
-      onUpdate(result.dashboard); setNotice(`${result.inserted} gifts imported. ${result.skipped} previously imported gifts skipped.`); setCsv(""); setShowImport(false);
+      const result = await onImport(csv, sourceName);
+      setNotice(`${result.inserted} gifts imported. ${result.skipped} previously imported gifts skipped.`); setCsv(""); setShowImport(false);
     } catch (err) { onError(errorMessage(err)); } finally { setBusy(null); }
   }
 
   async function saveAttendance() {
     setBusy("attendance"); onError(""); setNotice("");
     try {
-      const result = await apiRequest<{ dashboard: Dashboard }>("/api/attendance", "POST", { participantId, date: attendanceDate, status: attendanceStatus });
-      onUpdate(result.dashboard); setNotice("Attendance recorded once. The follow-up queue and report metrics now use this entry.");
+      await onSaveAttendance(participantId, attendanceDate, attendanceStatus);
+      setNotice("Attendance recorded once. The follow-up queue and report metrics now use this entry.");
     } catch (err) { onError(errorMessage(err)); } finally { setBusy(null); }
   }
 
@@ -66,7 +71,7 @@ export function OperationsWorkspace({ dashboard, mode, onUpdate, onError, onEvid
       <span className="metric-label">{metric.label}<ArrowRight size={15} /></span><strong>{formatMetric(metric.value, metric.unit)}</strong><span className="metric-foot"><span className={`metric-dot dot-${index % 3}`} />{metric.unit === "USD" ? "In this quarter" : metric.unit} <span>· View evidence</span></span>
     </button>)}</section>
 
-    {notice ? <div className="notice notice-success" role="status"><Check size={17} />{notice}</div> : null}
+    {notice ? <ToastNotice message={notice} onDismiss={() => setNotice("")} /> : null}
 
     <section className="panel merge-panel" aria-labelledby="merge-title">
       <div className="panel-heading"><div className="section-title"><span className="section-icon amber"><GitMerge size={19} /></span><div><h2 id="merge-title">A familiar name, a few different records</h2><p>Review the evidence before bringing someone’s history together.</p></div></div><span className={`pill ${pending.length ? "pill-amber" : "pill-green"}`}>{pending.length ? `${pending.length} to review` : "All reviewed"}</span></div>
@@ -103,7 +108,7 @@ export function OperationsWorkspace({ dashboard, mode, onUpdate, onError, onEvid
           return <button key={name} onClick={() => onEvidence(ids, name)}><span className="source-file-icon"><FileText size={17} /></span><span><strong>{name}</strong><small>{ids.length} source rows</small></span><ArrowRight size={15} /></button>;
         })}</div>
         <button className="button button-outline import-toggle" aria-expanded={showImport} onClick={() => setShowImport(!showImport)}><Plus size={16} />Import gift CSV</button>
-        {showImport ? <div className="import-form"><p className="muted">Use the normalized gift format. A repeated gift ID is skipped.</p><label>Source file name<input value={sourceName} onChange={(event) => setSourceName(event.target.value)} /></label><input ref={fileInput} className="visually-hidden" type="file" accept=".csv,text/csv" aria-label="Choose gift CSV" onChange={async (event) => { const file = event.target.files?.[0]; if (file) { try { setCsv(await file.text()); setSourceName(file.name); } catch (err) { onError(errorMessage(err)); } } }} /><button className="button button-small button-outline" onClick={() => fileInput.current?.click()}><FileInput size={14} />Choose a file</button><label>CSV data<textarea rows={7} value={csv} placeholder="gift_id,donor_id,name,email,phone,amount_cents,date,channel" onChange={(event) => setCsv(event.target.value)} /></label><button className="button button-primary" disabled={busy !== null || !csv.trim()} onClick={importCsv}>{busy === "import" ? <LoaderCircle size={15} className="spin" /> : <FileInput size={15} />}Import & review</button></div> : null}
+        {showImport ? <div className="import-form"><p className="muted">Use the normalized gift format. A repeated gift ID is skipped.</p><label>Source file name<input value={sourceName} onChange={(event) => setSourceName(event.target.value)} /></label><input ref={fileInput} className="visually-hidden" type="file" accept=".csv,text/csv" aria-label="Choose gift CSV" onChange={async (event) => { const file = event.target.files?.[0]; if (file) { try { const loaded = await readCsvFile(file); setCsv(loaded.text); setSourceName(loaded.name); } catch (err) { onError(errorMessage(err)); } } }} /><button className="button button-small button-outline" onClick={() => fileInput.current?.click()}><FileInput size={14} />Choose a file</button><label>CSV data<textarea rows={7} value={csv} placeholder="gift_id,donor_id,name,email,phone,amount_cents,date,channel" onChange={(event) => setCsv(event.target.value)} /></label><button className="button button-primary" disabled={busy !== null || !csv.trim()} onClick={importCsv}>{busy === "import" ? <LoaderCircle size={15} className="spin" /> : <FileInput size={15} />}Import & review</button></div> : null}
       </section>
     </div>
   </div>;

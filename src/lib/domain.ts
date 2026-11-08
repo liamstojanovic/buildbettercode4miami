@@ -74,7 +74,7 @@ export function getMetrics(state: DemoState): Metric[] {
   const hours = state.volunteerHours.filter((item) => inQuarter(state, item.date));
   return [
     { id: "participants", label: "Enrolled participants", value: state.participants.length, unit: "people", sourceIds: unique(state.participants.flatMap((item) => item.sourceIds)) },
-    { id: "donors", label: "Quarter donors", value: donorIds.length, unit: "people", sourceIds: unique(gifts.flatMap((gift) => [...gift.sourceIds, ...state.donors.find((donor) => donor.id === gift.donorId)!.sourceIds])) },
+    { id: "donors", label: "Unique donors this quarter", value: donorIds.length, unit: "people", sourceIds: unique(gifts.flatMap((gift) => [...gift.sourceIds, ...state.donors.find((donor) => donor.id === gift.donorId)!.sourceIds])) },
     { id: "giving", label: "Quarter giving", value: gifts.reduce((sum, gift) => sum + gift.amountCents, 0) / 100, unit: "USD", sourceIds: unique(gifts.flatMap((gift) => gift.sourceIds)) },
     { id: "attendance", label: "Attended sessions", value: attended.length, unit: "sessions", sourceIds: unique(attended.flatMap((item) => item.sourceIds)) },
     { id: "volunteer_hours", label: "Volunteer hours", value: hours.reduce((sum, item) => sum + item.hours, 0), unit: "hours", sourceIds: unique(hours.flatMap((item) => item.sourceIds)) },
