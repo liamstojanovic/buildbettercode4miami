@@ -1,0 +1,13 @@
+**
+!package.json
+!package-lock.json
+!src/
+!src/lib/
+!src/lib/**
+!scripts/
+!scripts/check-toolchain.mjs
+!scripts/sheets-bridge.ts
+!deploy/
+!deploy/sheets/
+!deploy/sheets/Dockerfile
+!deploy/sheets/Dockerfile.dockerignore

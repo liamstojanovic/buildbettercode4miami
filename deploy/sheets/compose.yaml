@@ -1,0 +1,25 @@
+name: tidepath-sheets
+services:
+  bridge:
+    build:
+      context: ../..
+      dockerfile: deploy/sheets/Dockerfile
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3220:3220"
+    volumes:
+      - workbook-data:/data
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.4-mini}
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 70s
+volumes:
+  workbook-data:

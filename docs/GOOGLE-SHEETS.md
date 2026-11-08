@@ -18,6 +18,10 @@ The existing app's earlier verification is recorded separately in [VERIFICATION.
 
 ## Start the protected backend connection
 
+For a Docker host with persistent workbook storage, see the
+[single-host bridge package](SHEETS-DEPLOYMENT.md). It uses the same bound Apps Script
+installation and authorization flow described here.
+
 Use **Node.js 24** and the installed lockfile. The bridge script uses modern Node flags and the OpenAI Agents SDK; the older system Node 20 on the original Windows workstation is insufficient.
 
 ```sh
@@ -42,6 +46,7 @@ Optional environment variables:
 | Variable | Purpose |
 | --- | --- |
 | `TIDEPATH_SHEETS_PORT` | Local bridge port; default `3220`. Update the tunnel target too. |
+| `TIDEPATH_SHEETS_HOST` | Bind address; default `127.0.0.1`. The host package explicitly uses `0.0.0.0` inside its container. |
 | `TIDEPATH_SHEETS_DATA` | Bridge data directory; default `.data/sheets`. |
 | `TIDEPATH_SHEETS_TOKEN` | Supply an existing strong URL-safe token instead of the generated file. |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | Enable live report generation. The bridge loads `.env.local`; the default model is `gpt-5.4-mini`. |
