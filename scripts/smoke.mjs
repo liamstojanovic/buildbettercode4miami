@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const base = process.env.TIDEPATH_URL || "http://127.0.0.1:3210";
+const base = process.env.LASER_FOCUS_URL || "http://127.0.0.1:3210";
 const origin = new URL(base);
 if (!["127.0.0.1", "localhost", "[::1]"].includes(origin.hostname)) throw new Error("Smoke tests reset state and may only target a local demo.");
 let checks = 0;

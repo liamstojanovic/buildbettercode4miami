@@ -37,11 +37,11 @@ export default function WorkspaceShell({ title, description, period, asOf, loadi
   return <div className="app-shell">
     <a href="#main-content" className={styles.skipLink}>Skip to content</a>
     <aside className={`sidebar ${styles.sidebar}`}>
-      <Link className="brand" href="/" aria-label="Tidepath home"><span className="brand-mark"><Waves size={28} strokeWidth={1.8} /></span><span>Tidepath<span className="brand-sub">FAMILY ALLIANCE</span></span></Link>
+      <Link className="brand" href="/" aria-label="Laser Focus home"><span className="brand-mark"><Waves size={28} strokeWidth={1.8} /></span><span>Laser Focus<span className="brand-sub">FAMILY ALLIANCE</span></span></Link>
       <div className="workspace-label">YOUR WORKSPACE</div>
       <nav aria-label="Workspace">{routes.map(({ href, label, icon: Icon }) => <Link key={href} href={href} prefetch={false} className={`nav-item ${pathname === href ? "active" : ""} ${styles.navLink}`} aria-label={label} aria-current={pathname === href ? "page" : undefined}><Icon size={19} /><span>{label}</span></Link>)}</nav>
       <div className="sidebar-note"><ShieldCheck size={22} /><strong>Good work deserves<br />a clear record.</strong><p>Every number has a source.<br />Every action has a reviewer.</p></div>
-      <div className="sidebar-footer"><span className="avatar">TF</span><div><strong>Tidepath demo team</strong><small>Miami-Dade, Florida</small></div><ArrowUpRight size={15} /></div>
+      <div className="sidebar-footer"><span className="avatar">LF</span><div><strong>Laser Focus demo team</strong><small>Miami-Dade, Florida</small></div><ArrowUpRight size={15} /></div>
     </aside>
     <div className="main-shell">
       <header className="topbar"><span className="topbar-crumb">Workspace <span>/</span>{activeLabel}</span><span className="demo-badge"><span />SYNTHETIC DEMO</span></header>

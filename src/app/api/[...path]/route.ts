@@ -91,7 +91,7 @@ async function handle(request: Request, context: Context) {
       return response(mutateState(state => ({ message: simulateDelivery(state, id, input.revision), dashboard: dashboard(state) })));
     }
     if (method === "GET" && action === "export" && path.length === 3) {
-      return new Response(exportDraft(readState(), id), { headers: { "Content-Type": "text/plain; charset=utf-8", "Content-Disposition": "attachment; filename=tidepath-approved-draft.txt", "Cache-Control": "no-store" } });
+      return new Response(exportDraft(readState(), id), { headers: { "Content-Type": "text/plain; charset=utf-8", "Content-Disposition": "attachment; filename=laser-focus-approved-draft.txt", "Cache-Control": "no-store" } });
     }
   }
   if (resource === "notes" && id && path.length === 2 && method === "GET") {
@@ -111,7 +111,7 @@ async function handle(request: Request, context: Context) {
   }
   if (resource === "disclosures" && id && action === "export" && method === "GET" && path.length === 3) {
     const payload = mutateState(state => exportDisclosure(state, id));
-    return new Response(JSON.stringify(payload, null, 2), { headers: { "Content-Type": "application/json", "Content-Disposition": "attachment; filename=tidepath-funder-copy.json", "Cache-Control": "no-store" } });
+    return new Response(JSON.stringify(payload, null, 2), { headers: { "Content-Type": "application/json", "Content-Disposition": "attachment; filename=laser-focus-funder-copy.json", "Cache-Control": "no-store" } });
   }
   throw new AppError("Route not found.", 404);
 }

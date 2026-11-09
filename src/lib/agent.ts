@@ -55,7 +55,7 @@ const instructions = [
   "Use only supplied evidence. Do not claim improved outcomes, trends, steady or increased engagement, lives saved, guaranteed benefits, or a payment cause absent from evidence. Describe recorded activity neutrally without evaluation.",
   "Use narrative for qualitative language. Do not put any digits, spelled-out quantities, currency values, percentages, dates, or counts in narrative. Put ALL numbers in claims instead.",
   "For a report or application include every returned metric exactly once in claims using id as metricId and its exact value. For a followup claims must be empty.",
-  "For an application answer the supplied question in Tidepath's plain, community-focused voice. Respect narrativeWordBudget: the full answer includes the rendered claim lines, which also count toward the funder's word limit.",
+  "For an application answer the supplied question in Laser Focus's plain, community-focused voice. Respect narrativeWordBudget: the full answer includes the rendered claim lines, which also count toward the funder's word limit.",
   "For a followup politely ask to talk; do not mention sensitive details, speculate about family circumstances, or ask for card details.",
 ].join("\n");
 
@@ -85,7 +85,7 @@ const runSdkModel: DraftModelRunner = async (call) => {
     execute: async () => call.readEvidence!(),
   })] : [];
   const agent = new Agent({
-    name: "Tidepath evidence drafter", model, instructions: call.instructions, tools,
+    name: "Laser Focus evidence drafter", model, instructions: call.instructions, tools,
     modelSettings: { maxTokens: 1600, parallelToolCalls: false, preserveRawUsage: true, retry: { maxRetries: 0 } },
     outputType: outputSchema,
   });
@@ -142,11 +142,11 @@ export async function prepareDraft(state: DemoState, request: DraftRequest, depe
     title: task ? task.kind === "attendance" ? "Family follow-up" : "Donor follow-up" : request.kind === "application" ? "Program support application" : "Quarterly impact report",
     narrative: task
       ? task.kind === "attendance"
-        ? "Hello from Tidepath. We missed you at mentoring and wanted to check in. Is there anything we can do to help you attend? Please let us know a good time to talk."
-        : "Hello from Tidepath. Thank you for supporting local children and families. We wanted to check in about your regular gift and see if we can help. Please let us know a good time to talk."
+        ? "Hello from Laser Focus. We missed you at mentoring and wanted to check in. Is there anything we can do to help you attend? Please let us know a good time to talk."
+        : "Hello from Laser Focus. Thank you for supporting local children and families. We wanted to check in about your regular gift and see if we can help. Please let us know a good time to talk."
       : request.kind === "application"
-        ? "Tidepath helps Miami-Dade children and families stay safe, in school and supported. We bring mentoring, family counseling and community learning together. Support for our program helps staff spend more time with families. The reviewed activity figures below describe our work during the reporting period."
-        : "Tidepath helps children and families stay connected to mentoring and community support. The figures below come from the recorded program activity and gifts for this reporting period. Staff review follow-up needs and approve actions before they leave the workspace.",
+        ? "Laser Focus helps Miami-Dade children and families stay safe, in school and supported. We bring mentoring, family counseling and community learning together. Support for our program helps staff spend more time with families. The reviewed activity figures below describe our work during the reporting period."
+        : "Laser Focus helps children and families stay connected to mentoring and community support. The figures below come from the recorded program activity and gifts for this reporting period. Staff review follow-up needs and approve actions before they leave the workspace.",
     claims: task ? [] : metrics.map((metric) => ({ metricId: metric.id, value: metric.value })),
     sourceIds, dataRevision: state.revision, originDataRevision: state.revision, sourceFingerprint: draftSourceFingerprint(state, request),
     revision: 1, status: "pending", mode: request.mode, createdAt: new Date().toISOString(), runId: randomUUID(),

@@ -6,7 +6,7 @@
 
 - **Liam's fork:** `liamstojanovic/buildbettercode4miami`, with `stable` as its default branch and shared, verified baseline. Start new work from it; unfinished work stays on feature branches. The initial `stable` starts from `feature/fe-01` at `7661f70`, plus the branch-workflow and local-data documentation changes. It does not include the separate work on `feature/fe-02`.
 - **Integration:** open pull requests from feature branches to the fork's `stable`. Run `npm run verify` and check the affected UI flows before merging. The **Development baseline** workflow runs on pull requests and pushes to `stable`, checking the actual devcontainer on Linux ARM64 and x86-64 runners. This documents the team process; it does not itself enforce branch protection.
-- **Team upstream:** `jemsbhai/buildbettercode4miami:codex/tidepath-mvp` remains the upstream integration target. Check the repository and base branch when opening cross-fork pull requests. Changing the fork's default branch preserves the GitHub fork relationship, Git history and existing remote URLs.
+- **Team upstream:** the team repository’s integration branch (confirm its current name before opening a PR) remains the upstream integration target. Check the repository and base branch when opening cross-fork pull requests. Changing the fork's default branch preserves the GitHub fork relationship, Git history and existing remote URLs.
 
 For this checkout, `origin` is Liam's fork and `upstream` is the team repository. With a clean working tree, update your baseline and create a feature branch:
 
@@ -37,7 +37,7 @@ npm run check:toolchain
 npm run dev
 ```
 
-Open **Tidepath** on port 3000 in VS Code's **Ports** panel. The server listens on container loopback; VS Code forwards it to host localhost. The shared `appPort` declaration exists for non-VS Code tooling (see the Devcontainer CLI workflow below) and changes nothing here, because port 3000 is already forwarded through `forwardPorts`. Do not add Docker `-p` publishing for the loopback-bound server. If local port 3000 is occupied, use the actual forwarded address shown in the Ports panel. Server startup is manual, so reopening the workspace does not start extra servers.
+Open **Laser Focus** on port 3000 in VS Code's **Ports** panel. The server listens on container loopback; VS Code forwards it to host localhost. The shared `appPort` declaration exists for non-VS Code tooling (see the Devcontainer CLI workflow below) and changes nothing here, because port 3000 is already forwarded through `forwardPorts`. Do not add Docker `-p` publishing for the loopback-bound server. If local port 3000 is occupied, use the actual forwarded address shown in the Ports panel. Server startup is manual, so reopening the workspace does not start extra servers.
 
 The image selects `linux/arm64` on ARM machines and `linux/amd64` on x86-64 machines. No emulation is forced. The `node` user runs terminals, installs, and application commands; Git, Bash, curl, ripgrep and less are available. VS Code's built-in TypeScript support uses the workspace compiler.
 
@@ -74,7 +74,7 @@ devcontainer up --workspace-folder .
 devcontainer exec --workspace-folder . bash
 ```
 
-No temporary configuration file is needed: the CLI reads the checked-in file in place, so the relative `Dockerfile` and `context` paths keep resolving. The shell runs inside the container as the `node` user, in `/workspaces/tidepath`. Inside it, start the application:
+No temporary configuration file is needed: the CLI reads the checked-in file in place, so the relative `Dockerfile` and `context` paths keep resolving. The shell runs inside the container as the `node` user, in `/workspaces/laser-focus`. Inside it, start the application:
 
 ```sh
 npm run check:toolchain
@@ -140,9 +140,9 @@ Keep platform-specific optional lockfile entries. Regenerate dependency changes 
 
 | Default path | Purpose |
 | --- | --- |
-| `.data/state.json` | Web-app state: seeded records, imported gifts, edits, drafts, approvals, agent runs and audit history. `src/lib/store.ts` creates the deterministic fictional seed on the first state read if the file is absent, and saves changes using atomic file replacement. `TIDEPATH_STATE_FILE` overrides this path. |
+| `.data/state.json` | Web-app state: seeded records, imported gifts, edits, drafts, approvals, agent runs and audit history. `src/lib/store.ts` creates the deterministic fictional seed on the first state read if the file is absent, and saves changes using atomic file replacement. `LASER_FOCUS_STATE_FILE` overrides this path. |
 | `.data/sheets/workspaces/` | Separate Google Sheets workbook sessions, with hashed spreadsheet IDs as filenames. These do not share the web app's state. |
-| `.data/sheets/bridge-token.txt` | Local Sheets bridge connection token, generated on bridge startup unless `TIDEPATH_SHEETS_TOKEN` supplies one. Treat it as a credential; do not commit or share it. `TIDEPATH_SHEETS_DATA` overrides the entire Sheets data directory. |
+| `.data/sheets/bridge-token.txt` | Local Sheets bridge connection token, generated on bridge startup unless `LASER_FOCUS_SHEETS_TOKEN` supplies one. Treat it as a credential; do not commit or share it. `LASER_FOCUS_SHEETS_DATA` overrides the entire Sheets data directory. |
 
 The devcontainer bind-mounts the checkout, so `.data/` is shared with the host and survives container rebuilds. It is not stored in the isolated `node_modules` or `.next` volumes. Native and container app sessions use the same default state file; the file store is designed for one Node process, so stop one server before starting another against that file.
 

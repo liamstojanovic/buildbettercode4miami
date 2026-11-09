@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { createSeed } from "./seed";
 import type { DemoState } from "./types";
 
-const filename = () => process.env.TIDEPATH_STATE_FILE || join(process.cwd(), ".data", "state.json");
+const filename = () => process.env.LASER_FOCUS_STATE_FILE || join(process.cwd(), ".data", "state.json");
 
 function atomicReplace(temp: string, path: string) {
   // Windows indexers/scanners can briefly hold the destination without delete-sharing.

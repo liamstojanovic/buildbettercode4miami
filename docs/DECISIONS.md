@@ -1,4 +1,4 @@
-# Tidepath decisions and remaining questions
+# Laser Focus decisions and remaining questions
 
 Recorded November 7, 2026. These decisions refine the suggested plan; they do not claim that every feature is implemented.
 

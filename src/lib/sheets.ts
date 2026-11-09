@@ -277,7 +277,7 @@ export async function executeSheetsCommand(workspace: SheetsWorkspace, rawComman
       const source = working.state.sources.find(source => source.id === id)!;
       return [id, `${source.source}, row ${source.row}`];
     });
-    const rows = [["Tidepath approved report", draft.title], ["Data", "Selected donation rows plus fictional Q3 2026 program activity"], ["Period", working.state.period.label], ["As of", working.state.asOf], ["Draft ID", draft.id], ["Revision", String(draft.revision)], ["Approved at", draft.approvedAt!], ["Approval digest", draft.approvedDigest!], ["Source range", `${working.selection!.sheetName}!${working.selection!.a1}`], ["Narrative", draft.narrative], ...draft.claims.map(claim => {
+    const rows = [["Laser Focus approved report", draft.title], ["Data", "Selected donation rows plus fictional Q3 2026 program activity"], ["Period", working.state.period.label], ["As of", working.state.asOf], ["Draft ID", draft.id], ["Revision", String(draft.revision)], ["Approved at", draft.approvedAt!], ["Approval digest", draft.approvedDigest!], ["Source range", `${working.selection!.sheetName}!${working.selection!.a1}`], ["Narrative", draft.narrative], ...draft.claims.map(claim => {
       const metric = getMetrics(working.state).find(metric => metric.id === claim.metricId)!;
       return [metric.label, metric.unit === "USD" ? `$${claim.value.toFixed(2)}` : `${claim.value} ${metric.unit}`];
     }), ["Evidence", "Source references"], ...sourceRows, ["Delivery", "Approved report only. No external message or submission was sent."]];

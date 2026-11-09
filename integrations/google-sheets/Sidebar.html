@@ -4,14 +4,14 @@
   <base target="_top">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tidepath for Sheets</title>
+  <title>Laser Focus for Sheets</title>
   <style>
     :root{--bg:#f8f8f3;--paper:#fff;--ink:#253d39;--muted:#637367;--teal:#1d695b;--soft:#e9f2ed;--line:#dfe6db;--amber:#875c24;--amber-bg:#fff4df;--error:#963f31;--error-bg:#fff0e8}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit;color:inherit}button,input,select,textarea,a,summary{outline-offset:3px}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--teal)}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button{width:100%;min-height:38px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-weight:650;text-align:center}button:hover:not(:disabled){background:#f0f5ee}.primary{background:var(--teal);border-color:var(--teal);color:#fff}.primary:hover:not(:disabled){background:#155345}.quiet{background:transparent;font-size:12px;min-height:32px}.row{display:flex;gap:7px;align-items:center}.row>*{min-width:0;flex:1}.stack>*+*{margin-top:10px}[hidden]{display:none!important}input,select,textarea{width:100%;min-width:0;border:1px solid #cad7c9;border-radius:7px;padding:8px;background:#fff}textarea{resize:vertical;min-height:148px;line-height:1.55}input[type=number]{font-variant-numeric:tabular-nums}label{display:block;font-size:12px;font-weight:650}label>input,label>select,label>textarea{margin-top:5px}p,h1,h2,h3{margin:0}h1{font-size:23px;letter-spacing:-1px;line-height:1.1}h2{font-size:15px;letter-spacing:-.2px}h3{font-size:13px}a{color:var(--teal)}small,.hint{font-size:11px;color:var(--muted);line-height:1.5}.hint{margin-top:5px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:var(--teal);font-weight:750}.brand{display:flex;gap:10px;align-items:center;padding:18px 14px 13px;background:var(--paper);border-bottom:1px solid var(--line)}.mark{display:grid;place-items:center;background:var(--teal);color:#fff;border-radius:11px 11px 18px 18px;width:35px;height:39px;font-weight:800;font-size:17px}.brand small{display:block;margin-top:4px}.body{padding:12px 12px 22px}.progress{display:flex;list-style:none;padding:0;margin:0 0 12px;gap:5px;font-size:10px;color:var(--muted)}.progress li{flex:1;border-top:3px solid var(--line);padding-top:5px}.progress li.active{border-color:var(--teal);color:var(--teal);font-weight:700}.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px}.card-title{display:flex;align-items:center;gap:7px;margin-bottom:9px}.step{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:var(--soft);color:var(--teal);font-size:11px;font-weight:750;flex-shrink:0}.badge{display:inline-block;font-size:10px;font-weight:650;border-radius:5px;padding:3px 6px;background:var(--soft);color:var(--teal)}.badge.warn{background:var(--amber-bg);color:var(--amber)}.notice{padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:10px;font-size:12px;overflow-wrap:anywhere}.notice.error{background:var(--error-bg);border-color:#ebcfc4;color:var(--error)}.notice.success{background:var(--soft);color:var(--teal)}.notice.warn{background:var(--amber-bg);border-color:#e9dbc0;color:var(--amber)}.notice ul{padding-left:16px;margin:5px 0 0}.status{min-height:0;font-size:12px;color:var(--teal);margin-top:8px;overflow-wrap:anywhere}.source{padding:9px;border-radius:7px;background:#f2f5ee;font-size:12px;overflow-wrap:anywhere}.source strong{display:block}.source small{display:block;margin-top:3px}.mapping{display:grid;gap:9px;margin-top:12px}.mapping label{display:grid;grid-template-columns:75px minmax(0,1fr);gap:6px;align-items:center}.mapping select{margin-top:0;font-size:12px;padding:7px 5px}.sample{margin-top:9px}.sample summary,details>summary{cursor:pointer;color:var(--teal);font-size:12px;font-weight:650;overflow-wrap:anywhere}.sample-scroll{overflow:auto;max-height:170px;margin-top:7px;border:1px solid var(--line);border-radius:6px}table{border-collapse:collapse;min-width:100%;font-size:11px;text-align:left}th,td{padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}th{background:#f2f5ee;position:sticky;top:0}.metric-pair{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}.metric{padding:9px;background:#f3f6ef;border-radius:7px}.metric small{display:block}.metric strong{display:block;font-size:18px;letter-spacing:-.5px;overflow-wrap:anywhere}.metric .change{font-size:11px;color:var(--muted);margin-top:3px}.candidate{border-top:1px solid var(--line);padding-top:11px;margin-top:11px}.candidate:first-child{border-top:0;padding-top:0}.candidate .identities{font-size:12px;margin:6px 0;padding-left:17px}.evidence{font-size:11px;color:var(--muted);margin:6px 0 9px;padding-left:17px;overflow-wrap:anywhere}.claim{border-top:1px solid var(--line);padding-top:9px;margin-top:9px}.claim label{font-weight:600}.claim small{display:block;margin-top:4px}.editor-actions{display:grid;gap:7px;margin-top:10px}.report-title{margin-bottom:8px}.report-title .badge{margin-top:4px}.editor-meta{font-size:11px;color:var(--muted);margin:6px 0 10px}.run{border-top:1px solid var(--line);padding-top:10px;margin-top:12px}.run ol{padding-left:17px;margin:8px 0}.run li{margin-top:6px;font-size:11px;overflow-wrap:anywhere}.run li strong{display:block}.run small{display:block;margin-top:5px}.footer{font-size:10px;line-height:1.6;color:var(--muted);margin-top:15px}.connection summary{font-size:11px}.connection form{margin-top:10px}.link-button{border:0;background:none;padding:0;min-height:20px;text-align:left;font-size:11px;color:var(--teal);font-weight:600}.link-button:hover:not(:disabled){text-decoration:underline;background:none}.empty{font-size:12px;color:var(--muted)}
   </style>
 </head>
 <body>
-  <header class="brand"><div class="mark" aria-hidden="true">t</div><div><h1>Tidepath</h1><small>Less admin. More human.</small></div></header>
+  <header class="brand"><div class="mark" aria-hidden="true">LF</div><div><h1>Laser Focus</h1><small>Less admin. More human.</small></div></header>
   <main class="body">
     <ol class="progress" aria-label="Workflow"><li id="progress-select" class="active">1 · Select</li><li id="progress-review">2 · Review</li><li id="progress-report">3 · Report</li></ol>
     <p class="eyebrow">In your spreadsheet</p>
@@ -19,7 +19,7 @@
     <div id="error" class="notice error" role="alert" hidden></div>
     <p id="status" class="status" role="status" aria-live="polite"></p>
     <details id="connection" class="card connection" open>
-      <summary id="connection-title">Connect Tidepath</summary>
+      <summary id="connection-title">Connect Laser Focus</summary>
       <form id="connection-form" class="stack">
         <p class="hint">Use the protected demo connection supplied by your team.</p>
         <label>Backend URL<input id="backend-url" type="url" placeholder="https://your-demo.example" autocomplete="off" required></label>
@@ -119,7 +119,7 @@
     function showError(error) {
       var text = String(error && error.message ? error.message : error).replace(/^Error:\s*/u, '');
       if (/while reading from storage/iu.test(text) && /\bPERMISSION_DENIED\b/u.test(text)) {
-        text = 'Google could not read the sidebar’s storage. Open this spreadsheet in a browser profile signed in only to the Google account that installed Tidepath, then reopen Tidepath. Multiple signed-in accounts can cause this Apps Script error.';
+        text = 'Google could not read the sidebar’s storage. Open this spreadsheet in a browser profile signed in only to the Google account that installed Laser Focus, then reopen Laser Focus. Multiple signed-in accounts can cause this Apps Script error.';
       }
       el('error').textContent = text; el('error').hidden = false;
     }
@@ -147,7 +147,7 @@
       state.configured = Boolean(context.configured);
       el('backend-url').value = context.backendUrl || '';
       el('connection').open = !state.configured;
-      el('connection-title').textContent = state.configured ? 'Connection settings' : 'Connect Tidepath';
+      el('connection-title').textContent = state.configured ? 'Connection settings' : 'Connect Laser Focus';
       if (context.selection) { state.summary = context.selection; renderPinned(); }
       if (context.selectionError) showError(new Error(context.selectionError));
       updateControls();
@@ -281,15 +281,15 @@
       el('generate').textContent = state.requestId ? 'Retry saved request' : 'Generate report';
     }
     async function command(input, options) {
-      var result = await rpc('tidepathCommand', input);
+      var result = await rpc('laserFocusCommand', input);
       if (result && result.error) throw new Error(result.error + ((result.issues || []).length ? ' ' + result.issues.map(function (issue) { return issue.message; }).join(' ') : ''));
       applyResult(result, options); return result;
     }
     function merge(id, decision) { return act('Saving the identity decision…', async function () { await command({ action: 'merge', candidateId: id, decision: decision }); message(decision === 'approve' ? 'Identities reconciled. Original gifts and money are preserved.' : 'These identities will stay separate.'); }); }
     function requestId() { return 'sheets-' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2)); }
-    el('connection-form').addEventListener('submit', function (event) { event.preventDefault(); act('Connecting…', async function () { var context = await rpc('tidepathConfigure', { url: el('backend-url').value.trim(), token: el('backend-token').value.trim() }); el('backend-token').value = ''; applyContext(context); await command({ action: 'status' }); message('Connection ready.'); }); });
-    el('read-selection').addEventListener('click', function () { act('Reading the selected cells…', async function () { renderSelection(await rpc('tidepathReadSelection')); message('Check the column mapping, then preview.'); }); });
-    el('create-demo').addEventListener('click', function () { act('Creating fictional donation rows…', async function () { renderSelection(await rpc('createTidepathDemo')); message('A new demo tab is ready. Check its mapping, then preview.'); }); });
+    el('connection-form').addEventListener('submit', function (event) { event.preventDefault(); act('Connecting…', async function () { var context = await rpc('laserFocusConfigure', { url: el('backend-url').value.trim(), token: el('backend-token').value.trim() }); el('backend-token').value = ''; applyContext(context); await command({ action: 'status' }); message('Connection ready.'); }); });
+    el('read-selection').addEventListener('click', function () { act('Reading the selected cells…', async function () { renderSelection(await rpc('laserFocusReadSelection')); message('Check the column mapping, then preview.'); }); });
+    el('create-demo').addEventListener('click', function () { act('Creating fictional donation rows…', async function () { renderSelection(await rpc('createLaserFocusDemo')); message('A new demo tab is ready. Check its mapping, then preview.'); }); });
     el('amount-unit').addEventListener('change', invalidatePreview);
     el('preview').addEventListener('click', function () { act('Checking rows without importing…', async function () {
       var result = await command({ action: 'preview', mapping: mapping(), amountUnit: el('amount-unit').value }); state.preview = result.preview;
@@ -314,7 +314,7 @@
     el('discard-edits').addEventListener('click', function () { var draft = currentDraft(); if (draft) { setEditor(draft); renderEditor(); message('Unsaved edits discarded.'); } });
     el('approve').addEventListener('click', function () { act('Checking exact content and evidence…', async function () { await command({ action: 'approve', draftId: state.editor.id, revision: state.editor.revision }, { replaceEditor: true }); message('Exact draft approved. It can now be written to a new tab.'); }); });
     el('write-report').addEventListener('click', function () { act('Rechecking the source and writing a new report tab…', async function () {
-      var result = await rpc('tidepathWriteReport', { draftId: state.editor.id, revision: state.editor.revision }); clear(el('write-result')); el('write-result').hidden = false;
+      var result = await rpc('laserFocusWriteReport', { draftId: state.editor.id, revision: state.editor.revision }); clear(el('write-result')); el('write-result').hidden = false;
       el('write-result').append(node('strong', result.replayed ? 'Already written: ' + result.sheetName : 'Created: ' + result.sheetName));
       try { var url = new URL(result.url); if (url.protocol === 'https:' && url.hostname === 'docs.google.com' && url.pathname.startsWith('/spreadsheets/')) { var link = node('a', 'Open approved report'); link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; el('write-result').append(document.createElement('br'), link); } } catch (_) { /* A receipt remains useful without a link. */ }
       message(result.replayed ? 'The existing report tab was reused. No duplicate was created.' : 'Approved report written. Original cells are unchanged.');
@@ -323,14 +323,14 @@
     el('reset-demo').addEventListener('click', function () { el('reset-confirm').hidden = false; el('reset-demo').hidden = true; });
     el('reset-cancel').addEventListener('click', function () { el('reset-confirm').hidden = true; el('reset-demo').hidden = false; });
     el('reset-confirm-button').addEventListener('click', function () { act('Resetting this workbook’s demo records…', async function () {
-      var result = await rpc('tidepathCommand', { action: 'reset' });
+      var result = await rpc('laserFocusCommand', { action: 'reset' });
       if (result && result.error) throw new Error(result.error);
       state.selection = null; state.summary = null; state.preview = null; state.editor = null; state.requestId = null; state.generationMode = null; state.selectionChanged = false; state.importResult = null;
       el('selection-panel').hidden = true; el('pinned-selection').hidden = true; el('preview-panel').hidden = true; el('write-result').hidden = true; el('editor').hidden = true;
       el('reset-confirm').hidden = true; el('reset-demo').hidden = false; clear(el('mapping')); clear(el('selection-sample'));
       applyResult(result); message('Workbook demo reset. Source cells and report tabs remain. Read a selection to rehearse again.');
     }); });
-    act('Opening Tidepath…', async function () { applyContext(await rpc('tidepathContext')); if (state.configured) await command({ action: 'status' }); message(state.configured ? 'Ready. Select donation rows or continue the reviewed workflow.' : 'Connect the demo backend to get started.'); });
+    act('Opening Laser Focus…', async function () { applyContext(await rpc('laserFocusContext')); if (state.configured) await command({ action: 'status' }); message(state.configured ? 'Ready. Select donation rows or continue the reviewed workflow.' : 'Connect the demo backend to get started.'); });
   }());
   </script>
 </body>

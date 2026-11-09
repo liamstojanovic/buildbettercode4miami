@@ -1,10 +1,10 @@
-# Tidepath: focused build plan
+# Laser Focus: focused build plan
 
 Status: working plan and acceptance gates. A described feature is not a shipped feature until its gate passes. The [original suggested plan](sources/suggested-build-plan.md) is reference material; this document records the revised scope.
 
 ## Product and judging story
 
-**Tidepath turns scattered nonprofit records into timely follow-ups, grounded grant work and funder copies that keep private details private.**
+**Laser Focus turns scattered nonprofit records into timely follow-ups, grounded grant work and funder copies that keep private details private.**
 
 Lead with the person who needs a call, then show the evidence and staff control. The differentiator is a complete, inspectable workflow: source rows → reconciled records → suggested action → checked draft → explicit approval. Do not open the demo with framework names.
 

@@ -9,4 +9,4 @@ RUN apt-get update \
 
 ENV NEXT_TELEMETRY_DISABLED=1
 USER node
-WORKDIR /workspaces/tidepath
+WORKDIR /workspaces/laser-focus

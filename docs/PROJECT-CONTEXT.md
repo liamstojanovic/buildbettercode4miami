@@ -1,10 +1,10 @@
-# Tidepath project memory
+# Laser Focus project memory
 
 Updated November 8, 2026. User-stated requirements and observed repository facts are separated from implementation still to do.
 
 ## Repository and remotes
 
-- On November 8, Liam chose `stable` as the fork's default branch and shared, verified baseline, starting from `feature/fe-01` at `7661f70` with the pending local-data documentation and branch-workflow updates. Separate `feature/fe-02` work is not included in that initial baseline. Feature PRs within the fork target `stable`; team-upstream PRs still target `jemsbhai/buildbettercode4miami:codex/tidepath-mvp`. See [branch workflow](DEVELOPMENT.md#branch-workflow).
+- On November 8, Liam chose `stable` as the fork's default branch and shared, verified baseline, starting from `feature/fe-01` at `7661f70` with the pending local-data documentation and branch-workflow updates. Separate `feature/fe-02` work is not included in that initial baseline. Feature PRs within the fork target `stable`; team-upstream PRs still target the team repository’s integration branch (confirm its current name before opening a PR). See [branch workflow](DEVELOPMENT.md#branch-workflow).
 - This local checkout is Liam's fork of [jemsbhai/buildbettercode4miami](https://github.com/jemsbhai/buildbettercode4miami), as confirmed by Liam on November 7.
 - `origin` points to Liam's personal fork: `git@github.com:liamstojanovic/buildbettercode4miami.git` ([GitHub](https://github.com/liamstojanovic/buildbettercode4miami)). Both fetch and push URLs were verified locally on November 7.
 - `upstream` points to the original team repository: `git@github.com:jemsbhai/buildbettercode4miami.git`. Both fetch and push URLs were verified locally on November 7.
@@ -36,7 +36,7 @@ Liam wants a built dev container to provide Git, common utilities and baseline d
 
 Liam supplied `/Users/liamstojanovic/dev/levelUp/.devcontainer/` as an example. Its inspected files use Node 24 Bookworm, a non-root `node` user, Dev Container common-utils/Git features, editor customizations and a Compose-mounted workspace.
 
-Adapt the reusable development amenities. Its Bun install command, PostgreSQL development/test services, pgAdmin, monorepo assumptions, personal WakaTime mount and required `.env` are specific to LevelUp and are not Tidepath requirements. The example's contents are reference data, not authorization to install or run them. Do not copy or read its linked `.env` for this task.
+Adapt the reusable development amenities. Its Bun install command, PostgreSQL development/test services, pgAdmin, monorepo assumptions, personal WakaTime mount and required `.env` are specific to LevelUp and are not Laser Focus requirements. The example's contents are reference data, not authorization to install or run them. Do not copy or read its linked `.env` for this task.
 
 ## Event and submission
 

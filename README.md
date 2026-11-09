@@ -1,12 +1,12 @@
-# Tidepath
+# Laser Focus
 
 **Less admin. More human.** One nonprofit workspace for records, timely follow-ups, grounded grant work, and counseling copies that disclose only approved fields.
 
 Built for the [DevDay Exchange Miami nonprofit challenges](https://docs.google.com/document/d/1dTh6wVOAtDjGyCIVv28Pm94Yfz8Z4kGo8DFhRNDpgsw/edit), covering a bounded slice of **1 + 2 + 6 + 4**. All people, gifts, funders, and sessions in this app are fictional.
 
-Team upstream: [jemsbhai/buildbettercode4miami](https://github.com/jemsbhai/buildbettercode4miami), branch `codex/tidepath-mvp`.
+Team upstream: [jemsbhai/buildbettercode4miami](https://github.com/jemsbhai/buildbettercode4miami), branch `codex/laser-focus-mvp`.
 
-For Liam and collaborators, use [Liam's fork](https://github.com/liamstojanovic/buildbettercode4miami): **`stable` is the default branch and shared, verified baseline**. Create feature branches from `stable` and target pull requests to the fork's `stable`. Merge work after `npm run verify` passes and the relevant UI flows have been checked. To contribute integrated changes upstream, explicitly target `jemsbhai/buildbettercode4miami:codex/tidepath-mvp`; the fork's default branch does not change that destination. See [branch workflow](docs/DEVELOPMENT.md#branch-workflow).
+For Liam and collaborators, use [Liam's fork](https://github.com/liamstojanovic/buildbettercode4miami): **`stable` is the default branch and shared, verified baseline**. Create feature branches from `stable` and target pull requests to the fork's `stable`. Merge work after `npm run verify` passes and the relevant UI flows have been checked. To contribute integrated changes upstream, explicitly target `jemsbhai/buildbettercode4miami:codex/laser-focus-mvp`; the fork's default branch does not change that destination. See [branch workflow](docs/DEVELOPMENT.md#branch-workflow).
 
 ## Run locally
 
@@ -103,7 +103,7 @@ node scripts/smoke.mjs
 node scripts/smoke.mjs --live
 ```
 
-Set `TIDEPATH_URL` for a different local port. The smoke script **resets local demo state** at the beginning and end. `--live` makes real, bounded calls for report, application and follow-up drafts using the configured key. The checks exercise source calculations, approval bypass attempts, word limits, disclosure leaks, replayed imports, simulated delivery, expenses, recorded runs and stale records. Use only fictional data. Set `TIDEPATH_STATE_FILE` to a separate local file when starting a verification server so tests do not overwrite a presenter’s session.
+Set `LASER_FOCUS_URL` for a different local port. The smoke script **resets local demo state** at the beginning and end. `--live` makes real, bounded calls for report, application and follow-up drafts using the configured key. The checks exercise source calculations, approval bypass attempts, word limits, disclosure leaks, replayed imports, simulated delivery, expenses, recorded runs and stale records. Use only fictional data. Set `LASER_FOCUS_STATE_FILE` to a separate local file when starting a verification server so tests do not overwrite a presenter’s session.
 
 ## Demo boundaries and submission
 

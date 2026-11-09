@@ -8,7 +8,7 @@ Team size is **four**. Existing assignments below cover the lead and two fronten
 
 The existing Next.js + TypeScript app already connects all four challenge flows. Extend it rather than starting separate apps. Use exactly Node.js 24.19.0 and npm 12.0.2; see [development setup](DEVELOPMENT.md). Run `npm ci`, then `npm run dev`; demo mode needs no API key.
 
-On [Liam's fork](https://github.com/liamstojanovic/buildbettercode4miami), `stable` is the default branch and shared baseline: create feature branches from it and target integration PRs to that fork's `stable`. For contributions to the team repository, explicitly target `jemsbhai/buildbettercode4miami:codex/tidepath-mvp`. See the [branch workflow](DEVELOPMENT.md#branch-workflow). Each PR should describe the user-facing change and include a screenshot and verification results.
+On [Liam's fork](https://github.com/liamstojanovic/buildbettercode4miami), `stable` is the default branch and shared baseline: create feature branches from it and target integration PRs to that fork's `stable`. For contributions to the team repository, explicitly target the team repository’s integration branch (confirm its current name before opening a PR). See the [branch workflow](DEVELOPMENT.md#branch-workflow). Each PR should describe the user-facing change and include a screenshot and verification results.
 
 ## Message for teammate A
 
