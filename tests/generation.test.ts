@@ -18,14 +18,14 @@ const report: DraftRequest = { kind: "report", mode: "demo" };
 const liveReport: DraftRequest = { kind: "report", mode: "live" };
 
 async function isolated(operation: (file: string) => Promise<void>) {
-  const directory = mkdtempSync(join(tmpdir(), "tidepath-generation-test-"));
+  const directory = mkdtempSync(join(tmpdir(), "laser-focus-generation-test-"));
   const file = join(directory, "state.json");
-  const original = process.env.TIDEPATH_STATE_FILE;
-  process.env.TIDEPATH_STATE_FILE = file;
+  const original = process.env.LASER_FOCUS_STATE_FILE;
+  process.env.LASER_FOCUS_STATE_FILE = file;
   try { await operation(file); }
   finally {
-    if (original === undefined) delete process.env.TIDEPATH_STATE_FILE;
-    else process.env.TIDEPATH_STATE_FILE = original;
+    if (original === undefined) delete process.env.LASER_FOCUS_STATE_FILE;
+    else process.env.LASER_FOCUS_STATE_FILE = original;
     assert.equal(dirname(resolve(directory)), resolve(tmpdir()));
     rmSync(directory, { recursive: true, force: true });
   }
@@ -39,7 +39,7 @@ function status(expected: number, message?: RegExp) {
 const controlledPrepare: typeof prepareDraft = (state, input) => prepareDraft(state, input, {
   runModel: async (call) => {
     const evidence = call.readEvidence!();
-    return { output: { narrative: "Tidepath provides mentoring and community support for families.", claims: evidence.metrics.map(({ id, value }) => ({ metricId: id, value })) }, usage: { inputTokens: 123, outputTokens: 45, known: true } };
+    return { output: { narrative: "Laser Focus provides mentoring and community support for families.", claims: evidence.metrics.map(({ id, value }) => ({ metricId: id, value })) }, usage: { inputTokens: 123, outputTokens: 45, known: true } };
   },
 });
 
@@ -142,7 +142,7 @@ test("failed live attempts count toward the limit across a fresh process; demo r
   assert.equal(called, 12);
   const moduleUrl = pathToFileURL(resolve("src/lib/generation.ts")).href;
   const code = `const m = await import(${JSON.stringify(moduleUrl)}); const generate = m.generateDraft ?? m.default.generateDraft; try { await generate({kind:'report',mode:'live'}, 'after-restart', async () => { throw new Error('Preparation must not run'); }); process.exit(2); } catch (error) { process.stdout.write(JSON.stringify({status:error.status,message:error.message})); }`;
-  const fresh = execFileSync(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", code], { cwd: process.cwd(), env: { ...process.env, TIDEPATH_STATE_FILE: file }, encoding: "utf8" });
+  const fresh = execFileSync(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", code], { cwd: process.cwd(), env: { ...process.env, LASER_FOCUS_STATE_FILE: file }, encoding: "utf8" });
   assert.equal(JSON.parse(fresh).status, 429);
   assert.deepEqual(readState(), state);
   assert.equal((await generateDraft(report, "rehearsal-after-limit", controlledPrepare)).draft.mode, "demo");

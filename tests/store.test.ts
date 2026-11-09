@@ -9,10 +9,10 @@ import { mutateState, readState, resetState } from "../src/lib/store";
 import { recordAttendance } from "../src/lib/domain";
 
 test("file store survives fresh-process reads, rolls back failed transactions, and resets deterministically", () => {
-  const directory = mkdtempSync(join(tmpdir(), "tidepath-store-test-"));
+  const directory = mkdtempSync(join(tmpdir(), "laser-focus-store-test-"));
   const file = join(directory, "state.json");
-  const original = process.env.TIDEPATH_STATE_FILE;
-  process.env.TIDEPATH_STATE_FILE = file;
+  const original = process.env.LASER_FOCUS_STATE_FILE;
+  process.env.LASER_FOCUS_STATE_FILE = file;
   try {
     const seeded = readState();
     assert.equal(seeded.revision, 1);
@@ -27,14 +27,14 @@ test("file store survives fresh-process reads, rolls back failed transactions, a
     assert.equal(latest.attendance.find((item) => item.participantId === "participant-lucia" && item.date === "2026-09-25")!.status, "present");
     const moduleUrl = pathToFileURL(resolve("src/lib/store.ts")).href;
     const code = `const module = await import(${JSON.stringify(moduleUrl)}); const s = (module.readState ?? module.default.readState)(); process.stdout.write(JSON.stringify({ revision: s.revision, status: s.attendance.find(a => a.participantId === 'participant-lucia' && a.date === '2026-09-25').status }));`;
-    const freshProcess = execFileSync(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", code], { cwd: process.cwd(), env: { ...process.env, TIDEPATH_STATE_FILE: file }, encoding: "utf8" });
+    const freshProcess = execFileSync(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", code], { cwd: process.cwd(), env: { ...process.env, LASER_FOCUS_STATE_FILE: file }, encoding: "utf8" });
     assert.deepEqual(JSON.parse(freshProcess), { revision: 2, status: "present" });
     assert.deepEqual(readdirSync(directory), ["state.json"], "atomic writes must not leave temporary files");
     resetState();
     assert.deepEqual(readState(), seeded);
   } finally {
-    if (original === undefined) delete process.env.TIDEPATH_STATE_FILE;
-    else process.env.TIDEPATH_STATE_FILE = original;
+    if (original === undefined) delete process.env.LASER_FOCUS_STATE_FILE;
+    else process.env.LASER_FOCUS_STATE_FILE = original;
     assert.equal(dirname(resolve(directory)), resolve(tmpdir()));
     rmSync(directory, { recursive: true, force: true });
   }

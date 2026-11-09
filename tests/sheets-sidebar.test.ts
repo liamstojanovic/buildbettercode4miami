@@ -76,9 +76,9 @@ async function harness() {
   const summary = () => ({ ...selection, values: undefined, formulas: undefined, rowCount: selection.values.length - 1, columnCount: selection.values[0].length, hash: "test-hash" });
   const invoke = async (name: string, argument: any) => {
     calls.push({ name, argument: argument === undefined ? undefined : JSON.parse(JSON.stringify(argument)) });
-    if (name === "tidepathContext" || name === "tidepathConfigure") return { configured: true, backendUrl: "https://bridge.example.test", workbookId: selection.workbookId };
-    if (name === "tidepathReadSelection" || name === "createTidepathDemo") return { selection: structuredClone(selection), summary: summary() };
-    if (name === "tidepathCommand") {
+    if (name === "laserFocusContext" || name === "laserFocusConfigure") return { configured: true, backendUrl: "https://bridge.example.test", workbookId: selection.workbookId };
+    if (name === "laserFocusReadSelection" || name === "createLaserFocusDemo") return { selection: structuredClone(selection), summary: summary() };
+    if (name === "laserFocusCommand") {
       if (rejectBefore?.(argument)) throw new Error(rejectBeforeMessage);
       const command = JSON.parse(JSON.stringify(argument));
       if (!["status", "reset"].includes(command.action)) command.selection = structuredClone(selection);
@@ -86,7 +86,7 @@ async function harness() {
       if (rejectAfter?.(argument)) throw new Error("Network interrupted after receiving the result");
       return result;
     }
-    if (name === "tidepathWriteReport") {
+    if (name === "laserFocusWriteReport") {
       await executeSheetsCommand(workspace, { action: "export", selection, ...argument }); written++;
       return { sheetName: "Approved report", url: "https://docs.google.com/spreadsheets/d/sidebar-workbook/edit#gid=11", replayed: false };
     }
@@ -204,7 +204,7 @@ test("reset requires confirmation and clears only workbook backend records while
   assert.equal(app.workspace.state.drafts.length, 0);
   assert.deepEqual(app.selection, source);
   assert.equal(app.written(), writtenTabs, "reset must not recreate, delete or write output tabs");
-  assert.equal(app.calls.some(call => call.name === "createTidepathDemo"), false);
+  assert.equal(app.calls.some(call => call.name === "createLaserFocusDemo"), false);
   assert.equal(app.element("selection-panel").hidden, true);
   assert.equal(app.element("pinned-selection").hidden, true);
   assert.equal(app.element("report-panel").hidden, true);
@@ -217,8 +217,8 @@ test("Google's specific storage permission failure explains single-account recov
   const gifts = structuredClone(app.workspace.state.gifts);
   app.before(() => true, "We're sorry, a server error occurred while reading from storage. Error code PERMISSION_DENIED.");
   await app.click("refresh");
-  assert.match(app.element("error").textContent, /browser profile signed in only to the Google account that installed Tidepath/u);
-  assert.match(app.element("error").textContent, /then reopen Tidepath/u);
+  assert.match(app.element("error").textContent, /browser profile signed in only to the Google account that installed Laser Focus/u);
+  assert.match(app.element("error").textContent, /then reopen Laser Focus/u);
   assert.deepEqual(app.workspace.state.gifts, gifts);
   assert.equal(app.element("refresh").disabled, false, "a Google account error must not leave the UI locked");
   const otherError = "PERMISSION_DENIED: the workbook owner has not granted access.";
