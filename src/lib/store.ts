@@ -1,8 +1,16 @@
+import { AsyncLocalStorage } from "node:async_hooks";
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
 import { createSeed } from "./seed";
 import type { DemoState } from "./types";
+
+const requestState = new AsyncLocalStorage<{ state: DemoState }>();
+export async function withDemoState<T>(state: DemoState, operation: () => Promise<T>) {
+  const scope = { state: structuredClone(state) };
+  const result = await requestState.run(scope, operation);
+  return { result, state: scope.state };
+}
 
 const filename = () => process.env.LASER_FOCUS_STATE_FILE || join(process.cwd(), ".data", "state.json");
 
@@ -21,12 +29,16 @@ function atomicReplace(temp: string, path: string) {
 
 // Synchronous read-modify-rename is serialized within ONE Node process. Not a multi-host database.
 export function readState(): DemoState {
+  const scope = requestState.getStore();
+  if (scope) return structuredClone(scope.state);
   const path = filename();
   if (!existsSync(path)) saveState(createSeed());
   return JSON.parse(readFileSync(path, "utf8")) as DemoState;
 }
 
 function saveState(state: DemoState) {
+  const scope = requestState.getStore();
+  if (scope) { scope.state = structuredClone(state); return; }
   const path = filename();
   mkdirSync(dirname(path), { recursive: true });
   const temp = `${path}.${randomUUID()}.tmp`;

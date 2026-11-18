@@ -1,3 +1,4 @@
+import DemoNotice from "@/components/shared/demo-notice";
 import type { Metadata } from "next";
 import "@fontsource/cormorant-garamond/400-italic.css";
 import "./globals.css";
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body><DemoNotice />{children}</body></html>;
 }

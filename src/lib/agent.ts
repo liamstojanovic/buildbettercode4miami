@@ -1,3 +1,4 @@
+import { hostedDemo } from "./runtime-mode";
 import { randomUUID } from "node:crypto";
 import { Agent, OpenAIProvider, RunContext, Runner, tool, type Model } from "@openai/agents";
 import OpenAI from "openai";
@@ -127,6 +128,7 @@ function providerFailure(error: unknown): { message: string; code: string } {
 }
 
 export async function prepareDraft(state: DemoState, request: DraftRequest, dependencies: DraftDependencies = {}): Promise<{ draft: Draft; run: AgentRun }> {
+  if (hostedDemo() && request.mode !== "demo") throw new Error("Live drafting is disabled in the hosted demo.");
   const started = Date.now();
   const events: RunEvent[] = [];
   const event = (action: string, detail: string, sourceIds: string[] = []) => events.push({ id: randomUUID(), at: new Date().toISOString(), action, detail, sourceIds: [...sourceIds] });

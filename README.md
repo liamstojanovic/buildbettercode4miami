@@ -110,3 +110,7 @@ Set `LASER_FOCUS_URL` for a different local port. The smoke script **resets loca
 This is a local, single-operator hackathon app. It has no authentication, independent reviewer identity, multi-instance database or clinical security boundary. The counselor role in audit entries is a demo actor. Do not use it for real counseling records; a pilot needs authenticated roles, a transactional store, access controls, and a reviewed retention/deployment design. Approved funder copies are exported, not submitted. The follow-up outbox visibly simulates delivery and does not prove deliverability to a real recipient.
 
 **Final submission is due Sunday, November 8, 2026, at 4:45 PM Eastern**, as supplied by Liam on November 7. The [organizer page](https://luma.com/codexmiami) lists Codex, OpenAI API and OpenAI Agents SDK and an event close of 9 PM Eastern, separate from submission. The judging rubric still needs confirmation. The challenge overview requires a public GitHub repository with MIT or Apache 2.0 licensing by submission. The public repository includes an MIT license. Event submission remains unfinished.
+
+## Vercel demo
+
+See [hosted demo deployment](docs/VERCEL-DEMO.md) for browser-specific fictional state, deterministic drafting, and deployment without service credentials.

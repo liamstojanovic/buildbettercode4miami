@@ -37,7 +37,10 @@ wait_for() {
   return 1
 }
 
-docker info >/dev/null 2>&1 || die 'Start Docker Desktop and retry.'
+if [[ -f /.dockerenv ]]; then
+  die 'Run bash scripts/start-local-stack.sh from the repo root in your Mac terminal, outside the devcontainer.'
+fi
+docker info >/dev/null 2>&1 || die 'Cannot connect to Docker. Check that Docker Desktop is running and docker info works in your Mac terminal.'
 app=${LASER_FOCUS_APP_CONTAINER:-$(find_container 3000 --filter "label=devcontainer.local_folder=$root")}
 # The demo bridge and an older Compose bridge share the same saved port mapping.
 bridge=${LASER_FOCUS_BRIDGE_CONTAINER:-$(find_container 3220 --filter 'label=com.docker.compose.service=bridge' --filter 'name=-bridge-demo$')}

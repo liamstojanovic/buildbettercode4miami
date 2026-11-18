@@ -1,3 +1,4 @@
+import { browserDemo, demoRequest } from "./browser-demo";
 import type { ValidationIssue } from "@/lib/types";
 
 export class ApiError extends Error {
@@ -5,6 +6,12 @@ export class ApiError extends Error {
 }
 
 export async function apiRequest<T>(path: string, method = "GET", body?: unknown, signal?: AbortSignal): Promise<T> {
+  if (browserDemo) {
+    const reply = await demoRequest(path, method, body, signal);
+    const result = reply.data as { error?: string; issues?: ValidationIssue[] } | null;
+    if (reply.status >= 400) throw new ApiError(result?.error ?? "Demo operation failed.", result?.issues ?? []);
+    return reply.data as T;
+  }
   const response = await fetch(path, {
     method,
     signal,

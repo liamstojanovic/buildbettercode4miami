@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "bash scripts/vercel-build.sh install",
+  "buildCommand": "bash scripts/vercel-build.sh build",
+  "env": { "LASER_FOCUS_HOSTED_DEMO": "1" },
+  "build": { "env": { "LASER_FOCUS_HOSTED_DEMO": "1" } }
+}

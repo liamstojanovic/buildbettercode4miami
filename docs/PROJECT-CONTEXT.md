@@ -1,6 +1,6 @@
 # Laser Focus project memory
 
-Updated November 8, 2026. User-stated requirements and observed repository facts are separated from implementation still to do.
+Updated November 18, 2026. User-stated requirements and observed repository facts are separated from implementation still to do.
 
 ## Repository and remotes
 
@@ -47,3 +47,7 @@ Adapt the reusable development amenities. Its Bun install command, PostgreSQL de
 - Liam's updated target on November 8: freeze features/code around **3:30 PM Eastern Sunday**, prioritizing feature delivery and usability. Deployed authentication is deferred; hosting remains undecided between Vercel and available AWS resources. See [FE-01 second-pass notes](FE-01-SECOND-PASS.md) for the FE-02 comparison and deferred deployment considerations.
 
 See [decisions](DECISIONS.md), [build plan](BUILD-PLAN.md) and [team handoff](TEAM-HANDOFF.md) for product scope and existing ownership.
+
+## Post-hackathon hosted demo
+
+On November 18, Liam chose to integrate `release/laser-focus` into the fork’s `stable` and deploy a personal Vercel demo. Hosted mode uses fictional browser-specific records, deterministic drafting, and stateless Next.js functions. No OpenAI key, Google Sheets bridge, database, or shared visitor state is required. The native Sheets integration remains local tooling. See [hosted demo deployment](VERCEL-DEMO.md). Deployment status must be verified separately.
