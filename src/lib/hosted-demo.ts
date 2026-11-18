@@ -10,6 +10,7 @@ const envelope = z.object({
   path: z.string().regex(/^\/api\/[a-zA-Z0-9_./-]+$/).max(300),
   method: z.enum(["GET", "POST", "PATCH"]),
   body: z.unknown().optional(),
+  requestId: z.string().regex(/^[A-Za-z0-9._:-]{1,128}$/).optional(),
   state: z.record(z.string(), z.unknown()).nullable(),
 }).strict();
 
@@ -40,7 +41,7 @@ export async function handleHostedDemo(request: Request): Promise<Response> {
     // Reset also recovers malformed or obsolete browser storage.
     const initial = parseState(input.path === "/api/reset" ? null : input.state);
     const url = new URL(input.path, request.url);
-    const inner = new Request(url, { method: input.method, headers: { host: url.host, "content-type": "application/json" },
+    const inner = new Request(url, { method: input.method, headers: { host: url.host, "content-type": "application/json", ...(input.requestId ? { "idempotency-key": input.requestId } : {}) },
       ...(input.method !== "GET" && input.body !== undefined ? { body: JSON.stringify(input.body) } : {}) });
     const { result, state } = await withDemoState(initial, async () => {
       const response = await dispatch(inner, { params: Promise.resolve({ path: input.path.slice(5).split("/") }) });

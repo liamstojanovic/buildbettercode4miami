@@ -5,10 +5,10 @@ import { createSeed } from "../src/lib/seed";
 import { withDemoState, readState, mutateState } from "../src/lib/store";
 import type { DemoState } from "../src/lib/types";
 
-async function call(path: string, method = "GET", body?: unknown, state: DemoState | null = null) {
+async function call(path: string, method = "GET", body?: unknown, state: DemoState | null = null, requestId?: string) {
   const response = await handleHostedDemo(new Request("https://demo.example/api/demo", {
     method: "POST", headers: { host: "demo.example", "Content-Type": "application/json", origin: "https://demo.example" },
-    body: JSON.stringify({ version: 1, path, method, body, state }),
+    body: JSON.stringify({ version: 1, path, method, body, state, requestId }),
   }));
   return { response, reply: await response.json() };
 }
@@ -36,9 +36,12 @@ test("hosted report generation, approval, export, replay and browser state round
   assert.equal(first.response.status, 200);
   assert.equal(first.reply.status, 200);
   assert.equal(first.response.headers.get("cache-control"), "no-store");
-  const generated = await call("/api/drafts", "POST", { kind: "report", mode: "demo" }, first.reply.state);
+  const generated = await call("/api/drafts", "POST", { kind: "report", mode: "demo" }, first.reply.state, "hosted-report");
   assert.equal(generated.reply.status, 200);
   const draft = generated.reply.data.draft;
+  const retried = await call("/api/drafts", "POST", { kind: "report", mode: "demo" }, generated.reply.state, "hosted-report");
+  assert.equal(retried.reply.data.replayed, true);
+  assert.equal(retried.reply.data.draft.id, draft.id);
   const blocked = await call(`/api/drafts/${draft.id}/export`, "GET", undefined, generated.reply.state);
   assert.equal(blocked.reply.status, 409);
   const approved = await call(`/api/drafts/${draft.id}/approve`, "POST", { revision: 1 }, generated.reply.state);
