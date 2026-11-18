@@ -1,4 +1,5 @@
 "use client";
+import DemoNotice from "@/components/shared/demo-notice";
 import { browserDemo } from "@/lib/browser-demo";
 
 import { useState, type ReactNode } from "react";
@@ -47,6 +48,7 @@ export default function WorkspaceShell({ title, description, period, asOf, loadi
     <div className="main-shell">
       <header className="topbar"><span className="topbar-crumb">Workspace <span>/</span>{activeLabel}</span><span className="demo-badge"><span />SYNTHETIC DEMO</span></header>
       <main id="main-content" tabIndex={-1}>
+        <DemoNotice />
         <div className="page-heading"><div><span className="eyebrow">LESS ADMIN. MORE HUMAN.</span><h1>{title}</h1><p>{description}</p></div></div>
         <div className="context-bar"><div><ClipboardCheck size={16} /><strong>{period ?? (loading ? "Loading quarter" : "Quarter unavailable")}</strong><span className="context-detail">{asOf ? `Record as of ${asOf.slice(0, 10)}` : "One shared record"}</span></div><span>Fictional demo data</span><div className={styles.contextActions}><label className="mode-select">Drafting mode<select value={mode} onChange={(event) => onModeChange(event.target.value as "demo" | "live")}><option value="demo">Demo · no model call</option>{!browserDemo && <option value="live" disabled={!liveAvailable}>Live · OpenAI agent{liveAvailable ? "" : " (key needed)"}</option>}</select></label><button className="button button-quiet reset-button" disabled={resetting || loading} onClick={() => { setResetError(""); Promise.resolve(onReset()).catch((err: unknown) => setResetError(errorMessage(err))); }}><RotateCcw size={15} className={resetting ? "spin" : ""} />Reset demo</button></div></div>
         {loading ? <div className="loading-state" role="status"><LoaderCircle className="spin" size={26} /><h2>Bringing your records together</h2><p>Loading the synthetic quarter.</p></div> : null}
