@@ -29,7 +29,7 @@ export async function readJsonBody(request: Request, limit = 1_000_000) {
   try { return JSON.parse(text); } catch { throw new AppError("Request body must be valid JSON."); }
 }
 
-function guardOrigin(request: Request) {
+export function guardOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return;
   // Next's internal request URL can use localhost while the browser uses 127.0.0.1.

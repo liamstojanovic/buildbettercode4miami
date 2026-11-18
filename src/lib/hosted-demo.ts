@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { dispatch, readJsonBody } from "./request-handler";
+import { dispatch, guardOrigin, readJsonBody } from "./request-handler";
 import { createSeed } from "./seed";
 import { withDemoState } from "./store";
 import { AppError } from "./service";
@@ -33,8 +33,7 @@ function parseState(value: Record<string, unknown> | null): DemoState {
 export async function handleHostedDemo(request: Request): Promise<Response> {
   const json = (value: unknown, status = 200) => Response.json(value, { status, headers: { "Cache-Control": "no-store" } });
   try {
-    const origin = request.headers.get("origin");
-    if (origin && new URL(origin).origin !== new URL(request.url).origin) return json({ error: "Cross-origin writes are not allowed." }, 403);
+    guardOrigin(request);
     const input = envelope.parse(await readJsonBody(request, 3_000_000));
     if (input.path === "/api/demo" || input.path.includes("..")) throw new AppError("Invalid demo operation.");
     if (input.body && typeof input.body === "object" && "mode" in input.body && input.body.mode !== "demo") throw new AppError("Live drafting is disabled in the hosted demo.", 403);

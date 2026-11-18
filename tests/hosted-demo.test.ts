@@ -7,7 +7,7 @@ import type { DemoState } from "../src/lib/types";
 
 async function call(path: string, method = "GET", body?: unknown, state: DemoState | null = null) {
   const response = await handleHostedDemo(new Request("https://demo.example/api/demo", {
-    method: "POST", headers: { "Content-Type": "application/json", origin: "https://demo.example" },
+    method: "POST", headers: { host: "demo.example", "Content-Type": "application/json", origin: "https://demo.example" },
     body: JSON.stringify({ version: 1, path, method, body, state }),
   }));
   return { response, reply: await response.json() };
@@ -27,6 +27,11 @@ test("hosted requests isolate concurrent state and never require disk", async ()
 
 test("hosted report generation, approval, export, replay and browser state roundtrip", async context => {
   context.mock.method(globalThis, "fetch", async () => { throw new Error("Hosted demo must not contact external services."); });
+  const proxied = await handleHostedDemo(new Request("http://localhost/api/demo", {
+    method: "POST", headers: { host: "demo.example", origin: "https://demo.example", "content-type": "application/json" },
+    body: JSON.stringify({ version: 1, state: null, path: "/api/dashboard", method: "GET" }),
+  }));
+  assert.equal(proxied.status, 200);
   const first = await call("/api/dashboard");
   assert.equal(first.response.status, 200);
   assert.equal(first.reply.status, 200);
