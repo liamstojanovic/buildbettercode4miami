@@ -32,7 +32,7 @@ async function stop(server: Server) {
 }
 
 async function isolated(operation: (bridge: { origin: () => string; command: (input: Record<string, unknown>, options?: { authorization?: string | null; headers?: Record<string, string> }) => Promise<HttpResult>; request: (path: string, options?: RequestInit) => Promise<HttpResult>; directory: string; restart: () => Promise<void> }) => Promise<void>, execute?: Execute) {
-  const directory = mkdtempSync(join(tmpdir(), "tidepath-bridge-test-"));
+  const directory = mkdtempSync(join(tmpdir(), "laser-focus-bridge-test-"));
   let server = createSheetsBridge({ token, directory, execute });
   const start = async () => { server.listen(0, "127.0.0.1"); await once(server, "listening"); };
   await start();
@@ -55,7 +55,7 @@ async function isolated(operation: (bridge: { origin: () => string; command: (in
 
 test("Sheets bridge exposes minimal health only and rejects unauthorized or browser-origin commands", () => isolated(async bridge => {
   const health = await bridge.request("/health");
-  assert.deepEqual(health.data, { service: "tidepath-sheets", status: "ok" });
+  assert.deepEqual(health.data, { service: "laser-focus-sheets", status: "ok" });
   assert.equal(health.headers.get("cache-control"), "no-store");
   assert.equal(health.headers.get("x-content-type-options"), "nosniff");
   assert.equal((await bridge.command({ action: "status" }, { authorization: null })).status, 401);

@@ -1,3 +1,4 @@
+import { hostedDemo } from "./runtime-mode";
 import { randomUUID } from "node:crypto";
 import { getMetrics, getQueue, renderDraft, validateDraft } from "./domain";
 import { disclosureIsCurrent, getGrantLedgers, renderApplicationAnswer, validateApplication } from "./programs";
@@ -15,7 +16,7 @@ export function dashboard(state: DemoState): Dashboard {
       disclosures: state.disclosures.map(disclosure => ({ ...disclosure, originDataRevision: disclosure.originDataRevision ?? disclosure.dataRevision, dataRevision: disclosureIsCurrent(state, disclosure) ? state.revision : disclosure.dataRevision })),
       notes: state.notes.map(({ id, familyCode, grantId, payable, date, counselor }) => ({ id, familyCode, grantId, payable, date, counselor })) },
     metrics: getMetrics(state), queue: getQueue({ ...state, drafts }),
-    liveAvailable: Boolean(process.env.OPENAI_API_KEY), ledgers: getGrantLedgers(state),
+    liveAvailable: !hostedDemo() && Boolean(process.env.OPENAI_API_KEY), ledgers: getGrantLedgers(state),
   };
 }
 

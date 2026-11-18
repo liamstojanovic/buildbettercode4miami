@@ -9,7 +9,7 @@ function draftFor(state: DemoState, kind: "report" | "followup" = "report"): Dra
   const metrics = getMetrics(state);
   const task = kind === "followup" ? getQueue(state)[0] : undefined;
   return { id: "service-draft", title: "Staff review draft", kind, queueItemId: task?.id,
-    narrative: "Tidepath supports families through mentoring and attentive follow-up. Please let us know how we can help.",
+    narrative: "Laser Focus supports families through mentoring and attentive follow-up. Please let us know how we can help.",
     claims: task ? [] : metrics.map(({ id, value }) => ({ metricId: id, value })),
     sourceIds: task ? task.sourceIds : [...new Set(metrics.flatMap((metric) => metric.sourceIds))],
     dataRevision: state.revision, revision: 1, status: "pending", mode: "demo", createdAt: "2026-09-30T10:00:00Z", runId: "service-run" };
@@ -30,7 +30,7 @@ test("approval permits export of exact revision; editing clears prior approval",
   const auditCount = state.audit.length;
   approveDraft(state, draft.id, 1);
   assert.equal(state.audit.length, auditCount);
-  editDraft(state, draft.id, { revision: 1, narrative: "Tidepath stays connected to families through mentoring and community care." });
+  editDraft(state, draft.id, { revision: 1, narrative: "Laser Focus stays connected to families through mentoring and community care." });
   assert.equal(draft.status, "pending");
   assert.equal(draft.revision, 2);
   assert.equal(draft.approvedAt, undefined);
@@ -74,7 +74,7 @@ test("follow-up delivery requires approval and is idempotent for the reviewed re
   assert.equal(simulateDelivery(state, draft.id, draft.revision), sent);
   assert.equal(state.outbox.length, 1);
   assert.equal(state.audit.length, auditCount);
-  editDraft(state, draft.id, { revision: 1, narrative: "Please let us know a good time to talk about how Tidepath can help." });
+  editDraft(state, draft.id, { revision: 1, narrative: "Please let us know a good time to talk about how Laser Focus can help." });
   assert.throws(() => simulateDelivery(state, draft.id, 1), errorStatus(409));
   assert.throws(() => simulateDelivery(state, draft.id, 2), errorStatus(409));
   assert.equal(state.outbox[0].body, sent.body);

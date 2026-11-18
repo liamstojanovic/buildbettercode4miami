@@ -4,7 +4,7 @@
 
 ## Copy-paste assignment
 
-> Work in the existing Tidepath Next.js + TypeScript application on Node.js 22+. Enhance the functional base in `src/components/report-workspace.tsx`; do not build a separate app. Own quarterly reports, the one-funder application and category ledger, structured claims, evidence, draft editing, validation, approval, export and recorded run history. Demonstrate a wrong claim blocking approval, a complete application answer staying within its word limit, and category spending using the funder's own year. Make pending/approved/stale state obvious and use server calculations throughout.
+> Work in the existing Laser Focus Next.js + TypeScript application on Node.js 22+. Enhance the functional base in `src/components/report-workspace.tsx`; do not build a separate app. Own quarterly reports, the one-funder application and category ledger, structured claims, evidence, draft editing, validation, approval, export and recorded run history. Demonstrate a wrong claim blocking approval, a complete application answer staying within its word limit, and category spending using the funder's own year. Make pending/approved/stale state obvious and use server calculations throughout.
 
 ## Ownership
 

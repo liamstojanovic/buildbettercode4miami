@@ -1,4 +1,4 @@
-# DevDay Exchange 2026 - Tidepath Combined Build Plan
+# DevDay Exchange 2026 - Laser Focus Combined Build Plan
 
 Event: DevDay Exchange (DeepStation / Codex Miami, "Agents for Good"), The LAB Miami.
 Window: Sat Nov 7 - Sun Nov 8, 2026, event closes 9:00 PM ET Sun. Submission needs a public GitHub repo, MIT or Apache 2.0 license, by the submission deadline.
@@ -25,7 +25,7 @@ Stack: the project lead's own published packages, used where they are real.
 - Draft checking: epicormic-style drift checks applied to generated text. Any figure in a draft that drifts from the record blocks approval until fixed.
 - Identity resolution: name-variant and contact matching across source lists produces merge CANDIDATES for the approval queue. Nothing auto-merges.
 
-Modules (scaffold in tidepath/src/):
+Modules (scaffold in laser-focus/src/):
 
 1. ingest.py - load the four ops lists and four donor channels.
 2. resolve.py - duplicate candidate detection, approval queue.
@@ -35,7 +35,7 @@ Modules (scaffold in tidepath/src/):
 6. draft_check.py - draft claims checked against record figures before approval.
 7. disclose.py - per-funder field filter for counseling notes, counselor preview payload, access log, non-payable session exclusion.
 
-## Data (all synthetic, seeded generator in tidepath/data/generate.py)
+## Data (all synthetic, seeded generator in laser-focus/data/generate.py)
 
 - One quarter (13 weeks) of sign-ups, attendance, matches, and volunteer hours, with the same people under spelling variants across files, and one kid with 3 consecutive absences.
 - Donor gifts across the four channels, including the Rosa Delgado triple with two emails, one December-annual donor who skipped last year, and one monthly donor whose gifts stop mid-quarter.

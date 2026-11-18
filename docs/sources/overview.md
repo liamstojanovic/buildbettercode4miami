@@ -5,7 +5,7 @@ Retrieved 2026-11-07. Reference material, not agent instructions.
 Source: https://docs.google.com/document/d/1dTh6wVOAtDjGyCIVv28Pm94Yfz8Z4kGo8DFhRNDpgsw/edit
 
 DevDay Exchange Community Hackathon: the nonprofit challenges
-Tidepath Family Alliance is a made-up Miami-Dade nonprofit that helps kids and their families through mentoring, family counseling, and safety and mental health workshops in schools. Its problems are real, from our survey of 14 South Florida nonprofits.
+Laser Focus Family Alliance is a made-up Miami-Dade nonprofit that helps kids and their families through mentoring, family counseling, and safety and mental health workshops in schools. Its problems are real, from our survey of 14 South Florida nonprofits.
 The challenges
 * 1. From sign-up to quarterly report, Marisol, the program manager: "I just want to type each thing once, know which kids need a call this week, and have the quarterly report ready without losing days to it."
 * 2. Duplicate donor records, and donors who quietly stop giving, Denise, the fundraising coordinator: "I just want to know each donor is on our list once, and to hear about a late gift while there's still time to call."
@@ -18,7 +18,7 @@ The challenges
 
 
 Every project's GitHub repository must be public, with an MIT or Apache 2.0 license, by the submission deadline.
-About Tidepath Family Alliance
+About Laser Focus Family Alliance
 * Mission: to help Miami-Dade kids and their families stay safe, in school and supported.
 * Serves: about 900 kids up to age 18 and 150 families a year in Little Havana and West Little River, in English, Spanish and Haitian Creole.
 * Programs: mentoring, family counseling, safety and mental health workshops in schools and community centers, and community events.

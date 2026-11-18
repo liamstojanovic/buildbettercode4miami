@@ -6,7 +6,7 @@ import { applicationWordCount, validateApplication } from "../src/lib/programs";
 import { createSeed } from "../src/lib/seed";
 import { AppError, approveDraft, editDraft } from "../src/lib/service";
 
-const goodNarrative = "Tidepath supports local families through mentoring and community care. These recorded activities help staff prepare for review.";
+const goodNarrative = "Laser Focus supports local families through mentoring and community care. These recorded activities help staff prepare for review.";
 const knownUsage = { inputTokens: 120, outputTokens: 40, known: true };
 function validOutput(evidence: DraftEvidence) {
   return { narrative: goodNarrative, claims: evidence.metrics.map(({ id, value }) => ({ metricId: id, value })) };
@@ -153,7 +153,7 @@ test("missing evidence tool is a failed run even when all returned claims happen
   assert.equal(error.run.inputTokens, 120);
   assert.equal(error.run.usageKnown, true);
   assert.ok(error.issues.some((issue) => issue.code === "evidence_step"));
-  assert.match(JSON.stringify(error.run.outputSnapshot), /Tidepath supports/);
+  assert.match(JSON.stringify(error.run.outputSnapshot), /Laser Focus supports/);
 });
 
 test("unexpected output fields and missing claims cannot replace the title or evidence metadata", async () => {
@@ -192,7 +192,7 @@ test("follow-up evidence omits report metrics and counseling notes", async () =>
       assert.equal(evidence.applicationQuestion, null);
       assert.ok(evidence.task);
       assert.doesNotMatch(JSON.stringify(evidence), /PRIVATE_SENTINEL|privateDetail|FAM-/);
-      return { output: { narrative: "Hello from Tidepath. Please let us know a good time to talk and how we can help.", claims: [] }, usage: knownUsage };
+      return { output: { narrative: "Hello from Laser Focus. Please let us know a good time to talk and how we can help.", claims: [] }, usage: knownUsage };
     },
   });
   assert.equal(draft.claims.length, 0);

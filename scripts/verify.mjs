@@ -24,12 +24,12 @@ await new Promise((resolve, reject) => {
 await new Promise((resolve, reject) => probe.close(error => error ? reject(error) : resolve()));
 
 // Never reset the developer's .data/state.json or use their live API credentials.
-const directory = mkdtempSync(join(tmpdir(), "tidepath-verify-"));
+const directory = mkdtempSync(join(tmpdir(), "laser-focus-verify-"));
 const env = {
   ...process.env,
-  TIDEPATH_STATE_FILE: join(directory, "state.json"),
+  LASER_FOCUS_STATE_FILE: join(directory, "state.json"),
   OPENAI_API_KEY: "",
-  TIDEPATH_URL: "http://127.0.0.1:3210",
+  LASER_FOCUS_URL: "http://127.0.0.1:3210",
   NEXT_TELEMETRY_DISABLED: "1"
 };
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", "3210"], { stdio: "inherit", env });
@@ -46,7 +46,7 @@ try {
     if (serverError) throw serverError;
     if (server.exitCode !== null) throw new Error(`Verification server exited (${server.exitCode}). Is port 3210 occupied?`);
     try {
-      const response = await fetch(`${env.TIDEPATH_URL}/api/dashboard`, { signal: AbortSignal.timeout(2000) });
+      const response = await fetch(`${env.LASER_FOCUS_URL}/api/dashboard`, { signal: AbortSignal.timeout(2000) });
       await response.arrayBuffer();
       if (response.ok) { ready = true; break; }
     } catch { /* Retry until the server is ready. */ }

@@ -1,4 +1,4 @@
-# Tidepath demo: four challenges in four minutes
+# Laser Focus demo: four challenges in four minutes
 
 This is the target script. Rehearse against the implemented build and remove any statement whose behavior is not verified. All people and records are fictional.
 
@@ -17,7 +17,7 @@ This is the target script. Rehearse against the implemented build and remove any
 
 | Time | Say | Do |
 | --- | --- | --- |
-| 0:00–0:20 | “One nonprofit, four kinds of repeated work: disconnected records, missed gifts, grant rules and counseling notes copied twice. Tidepath makes the next action clear and keeps each output tied to its evidence.” | Show fictional-data label, period and sources. |
+| 0:00–0:20 | “One nonprofit, four kinds of repeated work: disconnected records, missed gifts, grant rules and counseling notes copied twice. Laser Focus makes the next action clear and keeps each output tied to its evidence.” | Show fictional-data label, period and sources. |
 | 0:20–0:55 | “These three records may be Rosa. Staff see the evidence and decide.” | Approve the candidate. Show fewer unique donors, preserved gift history and unchanged money. |
 | 0:55–1:30 | “This participant has missed two completed sessions. We can call before the third. These donors also need follow-up, with evidence attached.” | Open the queue, show reasons and draft/approve a follow-up. If implemented, show a clearly labeled simulated outbox receipt. |
 | 1:30–2:10 | “The same records support a report and this funder's application. A wrong figure cannot be approved.” | Show a report metric's evidence. Open application, introduce a wrong claim, save and attempt approval; correct and approve. Show the complete-answer word limit. |

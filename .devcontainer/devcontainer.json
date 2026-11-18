@@ -1,11 +1,11 @@
 {
-  "name": "Tidepath",
+  "name": "Laser Focus",
   "build": {
     "dockerfile": "Dockerfile",
     "context": "."
   },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/tidepath,type=bind",
-  "workspaceFolder": "/workspaces/tidepath",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/laser-focus,type=bind",
+  "workspaceFolder": "/workspaces/laser-focus",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": "true",
@@ -22,8 +22,8 @@
   "updateRemoteUserUID": true,
   "init": true,
   "mounts": [
-    "source=tidepath-${devcontainerId}-node_modules,target=/workspaces/tidepath/node_modules,type=volume",
-    "source=tidepath-${devcontainerId}-next,target=/workspaces/tidepath/.next,type=volume"
+    "source=laser-focus-${devcontainerId}-node_modules,target=/workspaces/laser-focus/node_modules,type=volume",
+    "source=laser-focus-${devcontainerId}-next,target=/workspaces/laser-focus/.next,type=volume"
   ],
   "postCreateCommand": "sudo chown node:node node_modules .next && npm ci --no-audit --no-fund",
   "forwardPorts": [
@@ -34,7 +34,7 @@
   ],
   "portsAttributes": {
     "3000": {
-      "label": "Tidepath",
+      "label": "Laser Focus",
       "onAutoForward": "notify"
     }
   },

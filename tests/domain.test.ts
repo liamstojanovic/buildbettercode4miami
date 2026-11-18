@@ -7,7 +7,7 @@ import type { DemoState, Draft } from "../src/lib/types";
 function report(state: DemoState): Draft {
   const metrics = getMetrics(state);
   return {
-    id: "draft-test", kind: "report", title: "Quarter report", narrative: "Tidepath supports families through mentoring and consistent care. The figures below come from reviewed program records.",
+    id: "draft-test", kind: "report", title: "Quarter report", narrative: "Laser Focus supports families through mentoring and consistent care. The figures below come from reviewed program records.",
     claims: metrics.map(({ id, value }) => ({ metricId: id, value })), sourceIds: [...new Set(metrics.flatMap((item) => item.sourceIds))], dataRevision: state.revision,
     revision: 1, status: "pending", mode: "demo", createdAt: "2026-09-30T09:00:00Z", runId: "run-test",
   };

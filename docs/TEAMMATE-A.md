@@ -4,7 +4,7 @@
 
 ## Copy-paste assignment
 
-> Work in the existing Tidepath Next.js + TypeScript application on Node.js 22+. Enhance the functional base in `src/components/operations-workspace.tsx`; do not build a separate app. Own import, Rosa duplicate review, participant/donor call list, evidence and the counseling disclosure view. Make the operations flow clear, then show one note beside the exact limited funder payload with explicit counselor approval. Keep calculations, field filtering and approval checks on the server. Label fictional data and simulated delivery. Preserve the shared API contract and coordinate shell/global-style changes with the lead.
+> Work in the existing Laser Focus Next.js + TypeScript application on Node.js 22+. Enhance the functional base in `src/components/operations-workspace.tsx`; do not build a separate app. Own import, Rosa duplicate review, participant/donor call list, evidence and the counseling disclosure view. Make the operations flow clear, then show one note beside the exact limited funder payload with explicit counselor approval. Keep calculations, field filtering and approval checks on the server. Label fictional data and simulated delivery. Preserve the shared API contract and coordinate shell/global-style changes with the lead.
 
 ## Ownership
 

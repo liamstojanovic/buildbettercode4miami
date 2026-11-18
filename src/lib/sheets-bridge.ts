@@ -58,7 +58,7 @@ export function createSheetsBridge(options: SheetsBridgeOptions) {
     let ownsLock = false;
     let ownsLive = false;
     try {
-      if (req.method === "GET" && req.url === "/health") { send(res, 200, { service: "tidepath-sheets", status: "ok" }); return; }
+      if (req.method === "GET" && req.url === "/health") { send(res, 200, { service: "laser-focus-sheets", status: "ok" }); return; }
       if (req.url !== "/v1/command") { send(res, 404, { error: "Route not found." }); return; }
       if (req.method !== "POST") throw new AppError("Use POST for Sheets commands.", 405);
       const supplied = req.headers.authorization ?? "";

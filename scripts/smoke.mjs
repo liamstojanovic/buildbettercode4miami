@@ -1,11 +1,27 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const base = process.env.TIDEPATH_URL || "http://127.0.0.1:3210";
+const base = process.env.LASER_FOCUS_URL || "http://127.0.0.1:3210";
 const origin = new URL(base);
-if (!["127.0.0.1", "localhost", "[::1]"].includes(origin.hostname)) throw new Error("Smoke tests reset state and may only target a local demo.");
+const hosted = process.argv.includes("--hosted");
+if (hosted && process.argv.includes("--live")) throw new Error("Hosted checks never use live mode.");
+let browserState = null;
+if (!hosted && !["127.0.0.1", "localhost", "[::1]"].includes(origin.hostname)) throw new Error("Smoke tests reset state and may only target a local demo.");
 let checks = 0;
 async function request(path, method = "GET", body, expected = 200, extraHeaders = {}) {
+  if (hosted) {
+    const response = await fetch(`${base}/api/demo`, {
+      method: "POST", headers: { Origin: origin.origin, "Content-Type": "application/json" },
+      body: JSON.stringify({ version: 1, state: browserState, path: `/api/${path}`, method, body, requestId: extraHeaders["Idempotency-Key"] }),
+      signal: AbortSignal.timeout(20_000),
+    });
+    const reply = await response.json();
+    assert.equal(response.status, 200, JSON.stringify(reply));
+    assert.equal(reply.status, expected, `${method} ${path}: ${JSON.stringify(reply.data).slice(0, 500)}`);
+    browserState = reply.state;
+    checks++;
+    return reply.download?.contentType.includes("application/json") ? JSON.parse(reply.data) : reply.data;
+  }
   const response = await fetch(`${base}/api/${path}`, {
     method, headers: { Origin: origin.origin, ...(body !== undefined ? { "Content-Type": "application/json" } : {}), ...extraHeaders },
     body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(70_000),
@@ -52,7 +68,7 @@ try {
     checks++;
   }
   await request("reset", "POST");
-  const crossOrigin = await fetch(`${base}/api/reset`, { method: "POST", headers: { Origin: "https://unrelated.example" }, signal: AbortSignal.timeout(10_000) });
+  const crossOrigin = await fetch(`${base}/api/${hosted ? "demo" : "reset"}`, { method: "POST", headers: { Origin: "https://unrelated.example" }, signal: AbortSignal.timeout(10_000) });
   assert.equal(crossOrigin.status, 403);
   checks++;
   const initial = await request("dashboard");

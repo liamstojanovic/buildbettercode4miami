@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { browserDemo, subscribeDemoStorage } from "@/lib/browser-demo";
 import { apiRequest, errorMessage } from "@/lib/client-api";
 import type { Attendance, Claim, CounselingNote, Dashboard, Disclosure, Draft, Expense, SourceRow } from "@/lib/types";
 
@@ -26,6 +27,8 @@ export default function useWorkspaceData() {
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, [attempt]);
+
+  useEffect(() => browserDemo ? subscribeDemoStorage(() => setAttempt(value => value + 1)) : undefined, []);
 
   // Mutations. On success the server's refreshed dashboard replaces local state. On failure the
   // ApiError is rethrown unchanged; views catch it and decide how to present the message.

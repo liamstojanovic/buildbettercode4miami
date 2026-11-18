@@ -1,6 +1,6 @@
-# Tidepath inside Google Sheets
+# Laser Focus inside Google Sheets
 
-The sidebar connects selected donation rows to Tidepath's existing import, identity-review, report and approval engine. It writes the exact approved report to a new worksheet. The original donation table is preserved.
+The sidebar connects selected donation rows to Laser Focus's existing import, identity-review, report and approval engine. It writes the exact approved report to a new worksheet. The original donation table is preserved.
 
 This integration covers donation reconciliation and reporting. Program figures in the report are explicitly labeled fictional Q3 2026 demo activity. It is not automatic spreadsheet synchronization, and it does not read or expose the main application's counseling records.
 
@@ -41,9 +41,9 @@ Optional environment variables:
 
 | Variable | Purpose |
 | --- | --- |
-| `TIDEPATH_SHEETS_PORT` | Local bridge port; default `3220`. Update the tunnel target too. |
-| `TIDEPATH_SHEETS_DATA` | Bridge data directory; default `.data/sheets`. |
-| `TIDEPATH_SHEETS_TOKEN` | Supply an existing strong URL-safe token instead of the generated file. |
+| `LASER_FOCUS_SHEETS_PORT` | Local bridge port; default `3220`. Update the tunnel target too. |
+| `LASER_FOCUS_SHEETS_DATA` | Bridge data directory; default `.data/sheets`. |
+| `LASER_FOCUS_SHEETS_TOKEN` | Supply an existing strong URL-safe token instead of the generated file. |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | Enable live report generation. The bridge loads `.env.local`; the default model is `gpt-5.4-mini`. |
 
 Rehearsal drafting requires no model key and is labeled as a deterministic template. Live mode uses the existing evidence tool, numeric validation and bounded repair logic.
@@ -56,10 +56,10 @@ Use a separate demo spreadsheet. A copy of an existing workbook is also suitable
 2. Put the repository's [Code.gs](../integrations/google-sheets/Code.gs) into the project's `Code.gs` file.
 3. Add an HTML file named `Sidebar` and paste [Sidebar.html](../integrations/google-sheets/Sidebar.html).
 4. In Apps Script project settings, enable the manifest file in the editor. Replace `appsscript.json` with the repository's [manifest](../integrations/google-sheets/appsscript.json).
-5. Save, then reload the spreadsheet. Open **Tidepath → Open sidebar**. Complete Google's authorization flow when requested.
-6. Expand **Connect Tidepath**, enter the tunnel's HTTPS origin and the local bridge token, then select **Save connection**.
+5. Save, then reload the spreadsheet. Open **Laser Focus → Open sidebar**. Complete Google's authorization flow when requested.
+6. Expand **Connect Laser Focus**, enter the tunnel's HTTPS origin and the local bridge token, then select **Save connection**.
 
-If the workbook already has an `onOpen` handler, add the Tidepath menu to that existing handler instead of defining a second one. The script is bound to the workbook; it is not deployed as a public Apps Script web app.
+If the workbook already has an `onOpen` handler, add the Laser Focus menu to that existing handler instead of defining a second one. The script is bound to the workbook; it is not deployed as a public Apps Script web app.
 
 The native manifest requests only the current spreadsheet, container UI and external-request scopes. Connection settings are stored in that Google user's Apps Script `UserProperties`, not in cells or returned dashboard data. Another Google user configures their own connection.
 
@@ -69,13 +69,13 @@ For CLI installation, the implementation was prepared with `@google/clasp` **3.4
 
 If the sidebar opens but its server calls fail with `PERMISSION_DENIED`, first check the browser's Google sign-in state. Google documents that simultaneous sign-in to multiple accounts is unsupported for Apps Script, add-ons and web apps. Use a separate browser profile or private window signed into only the account that can edit this workbook, open the same spreadsheet, and authorize the bound script if prompted. This follows [Google's multi-account troubleshooting guidance](https://developers.google.com/apps-script/guides/support/troubleshooting).
 
-Then reopen **Tidepath → Open sidebar**, configure the connection for that Google user, and repeat selection → preview/import → approval → write-back. A visible sidebar or completed consent screen alone does not prove those calls work. If the error persists with one account, inspect the bound project's executions and granted scopes before attributing it to the bridge token; a bridge-token rejection has its own explicit connection error.
+Then reopen **Laser Focus → Open sidebar**, configure the connection for that Google user, and repeat selection → preview/import → approval → write-back. A visible sidebar or completed consent screen alone does not prove those calls work. If the error persists with one account, inspect the bound project's executions and granted scopes before attributing it to the bridge token; a bridge-token rejection has its own explicit connection error.
 
 ## Rehearse the full flow
 
 For a repeat rehearsal, open **Demo tools → Reset workbook demo** and confirm. This clears only the workbook's backend session, preserving its source cells and previously written report tabs. Creating another demo tab alone does not undo an earlier identity decision.
 
-1. Select **Create fictional demo rows** in the sidebar, or **Tidepath → Create fictional demo data** in the menu. This creates a new tab containing the fixture from [demo-gifts.json](../integrations/google-sheets/demo-gifts.json). It has seven gifts, five donor identities and **$635** in giving.
+1. Select **Create fictional demo rows** in the sidebar, or **Laser Focus → Create fictional demo data** in the menu. This creates a new tab containing the fixture from [demo-gifts.json](../integrations/google-sheets/demo-gifts.json). It has seven gifts, five donor identities and **$635** in giving.
 2. Select the complete donation table including its header, then **Read selected rows**. Check the field mapping and choose **Dollars** for this fixture. Select **Preview import**, inspect the totals, then **Import reviewed rows**.
 3. Review Rosa's matching contact evidence and choose **Same donor**. The donor count changes from **5 to 3**; giving remains **$635**, and all seven gifts remain recorded. A namesake with different contacts stays separate.
 4. Select rehearsal or live drafting, then **Generate report**. Change a verified figure to an incorrect value, **Save edits**, and attempt **Approve exact draft**. Show the validation error; restore the recorded value, save and approve.
